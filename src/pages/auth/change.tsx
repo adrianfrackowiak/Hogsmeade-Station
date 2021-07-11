@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
-import { Button, FormGroup, Input } from 'reactstrap';
-import AuthContainer from '../../components/AuthContainer';
 import ErrorText from '../../components/ErrorText';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';
+import Layout from '../../components/Layout';
 
-const ChangePasswordPage: React.FunctionComponent<IPageProps> = props => {
+const ChangePasswordPage: React.FunctionComponent<IPageProps> = (props) => {
     const [changing, setChanging] = useState<boolean>(false);
     const [password, setPassword] = useState<string>('');
     const [old, setOld] = useState<string>('');
@@ -17,8 +16,7 @@ const ChangePasswordPage: React.FunctionComponent<IPageProps> = props => {
     const history = useHistory();
 
     const passwordChangeRequest = () => {
-        if (password !== confirm)
-        {
+        if (password !== confirm) {
             setError('Make sure your passwords are matching');
             return;
         }
@@ -27,67 +25,62 @@ const ChangePasswordPage: React.FunctionComponent<IPageProps> = props => {
 
         setChanging(true);
 
-        auth.currentUser?.updatePassword(password)
-        .then(() => {
-            logging.info('Password change successful.');
-            history.push('/');
-        })
-        .catch(error => {
-            logging.error(error);
-            setChanging(false);
-            setError(error.message);
-        });
-    }
+        auth.currentUser
+            ?.updatePassword(password)
+            .then(() => {
+                logging.info('Password change successful.');
+                history.push('/');
+            })
+            .catch((error: { message: React.SetStateAction<string> }) => {
+                logging.error(error);
+                setChanging(false);
+                setError(error.message);
+            });
+    };
 
     if (auth.currentUser?.providerData[0]?.providerId !== 'password')
         return <Redirect to="/" />;
 
     return (
-        <AuthContainer header="Change Password">
-            <FormGroup>
-                <Input 
+        <Layout>
+            <form>
+                <input
                     autoComplete="new-password"
                     type="password"
-                    name="oldPassword"
-                    id="oldPassword"
-                    placeholder="Current Password"
-                    onChange={event => setOld(event.target.value)}
+                    name="oldpassword"
+                    id="oldpassword"
+                    placeholder="Enter current password"
+                    onChange={(event) => setOld(event.target.value)}
                     value={old}
                 />
-            </FormGroup>
-            <FormGroup>
-                <Input 
+                <input
                     autoComplete="new-password"
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Enter Password"
-                    onChange={event => setPassword(event.target.value)}
+                    placeholder="Enter your new password"
+                    onChange={(event) => setPassword(event.target.value)}
                     value={password}
                 />
-            </FormGroup>
-            <FormGroup>
-                <Input 
+                <input
                     autoComplete="new-password"
                     type="password"
                     name="confirm"
                     id="confirm"
-                    placeholder="Confirm Password"
-                    onChange={event => setConfirm(event.target.value)}
+                    placeholder="Confirm your new password"
+                    onChange={(event) => setConfirm(event.target.value)}
                     value={confirm}
                 />
-            </FormGroup>
-            <Button
-                disabled={changing}
-                color="success"
-                block
-                onClick={() => passwordChangeRequest()}
-            >
-                Change Password
-            </Button>
-            <ErrorText error={error} />
-        </AuthContainer>
+                <button
+                    disabled={changing}
+                    onClick={() => passwordChangeRequest()}
+                >
+                    Change password
+                </button>
+                <ErrorText error={error} />
+            </form>
+        </Layout>
     );
-}
+};
 
 export default ChangePasswordPage;

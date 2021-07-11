@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Button, FormGroup, Input } from 'reactstrap';
-import AuthContainer from '../../components/AuthContainer';
 import ErrorText from '../../components/ErrorText';
-import { auth } from '../../config/firebase';
+import Layout from '../../components/Layout';
+import { auth, db } from '../../config/firebase';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';
 
-const RegisterPage: React.FunctionComponent<IPageProps> = props => {
+interface User {
+    firstName: string;
+    lastName: string;
+    email: string;
+}
+
+const RegisterPage: React.FunctionComponent<IPageProps> = (props) => {
     const [registering, setRegistering] = useState<boolean>(false);
+    const [firstName, setFirstName] = useState<string>('');
+    const [lastName, setLastName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirm, setConfirm] = useState<string>('');
@@ -16,9 +23,8 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
 
     const history = useHistory();
 
-    const signUpWithEmailAndPassword = () => {
-        if (password !== confirm)
-        {
+    const signUpWithEmailAndPassword = (newUser: User) => {
+        if (password !== confirm) {
             setError('Please make sure your passwords match.');
             return;
         }
@@ -28,78 +34,95 @@ const RegisterPage: React.FunctionComponent<IPageProps> = props => {
         setRegistering(true);
 
         auth.createUserWithEmailAndPassword(email, password)
-        .then(result => {
-            logging.info(result);
-            history.push('/login');
-        })
-        .catch(error => {
-            logging.error(error);
+            .then((result: any) => {
+                logging.info(result);
+                db.ref('users/' + result.user.uid)
+                    .set(newUser)
+                    .catch((error: any) => {
+                        logging.error(error);
+                    });
 
-            if (error.code.includes('auth/weak-password'))
-            {
-                setError('Please enter a stronger password.');
-            }
-            else if (error.code.includes('auth/email-already-in-use'))
-            {
-                setError('Email already in use.');
-            }
-            else
-            {
-                setError('Unable to register.  Please try again later.')
-            }
+                history.push('/login');
+            })
+            .catch((error: { code: string | string[] }) => {
+                logging.error(error);
 
-            setRegistering(false);
-        });
-    }
+                if (error.code.includes('auth/weak-password')) {
+                    setError('Please enter a stronger password.');
+                } else if (error.code.includes('auth/email-already-in-use')) {
+                    setError('Email already in use.');
+                } else {
+                    setError('Unable to register.  Please try again later.');
+                }
+
+                setRegistering(false);
+            });
+    };
 
     return (
-        <AuthContainer header="Register">
-            <FormGroup>
-                <Input 
+        <Layout>
+            <form>
+                <input
+                    type="first-name"
+                    name="first-name"
+                    id="first-name"
+                    placeholder="Enter your first name"
+                    onChange={(event) => setFirstName(event.target.value)}
+                    value={firstName}
+                />
+                <input
+                    type="last-name"
+                    name="last-name"
+                    id="last-name"
+                    placeholder="Enter your last name"
+                    onChange={(event) => setLastName(event.target.value)}
+                    value={lastName}
+                />
+                <input
                     type="email"
                     name="email"
                     id="email"
-                    placeholder="Email Address"
-                    onChange={event => setEmail(event.target.value)}
+                    placeholder="Enter your email address"
+                    onChange={(event) => setEmail(event.target.value)}
                     value={email}
                 />
-            </FormGroup>
-            <FormGroup>
-                <Input 
+                <input
                     autoComplete="new-password"
                     type="password"
                     name="password"
                     id="password"
-                    placeholder="Enter Password"
-                    onChange={event => setPassword(event.target.value)}
+                    placeholder="Enter your password"
+                    onChange={(event) => setPassword(event.target.value)}
                     value={password}
                 />
-            </FormGroup>
-            <FormGroup>
-                <Input 
+                <input
                     autoComplete="new-password"
                     type="password"
                     name="confirm"
                     id="confirm"
-                    placeholder="Confirm Password"
-                    onChange={event => setConfirm(event.target.value)}
+                    placeholder="Confirm your password"
+                    onChange={(event) => setConfirm(event.target.value)}
                     value={confirm}
                 />
-            </FormGroup>
-            <Button
-                disabled={registering}
-                color="success"
-                block
-                onClick={() => signUpWithEmailAndPassword()}
-            >
-                Sign Up
-            </Button>
-            <small>
-                <p className='m-1 text-center'>Already have an account? <Link to="/login">Login.</Link></p>
-            </small>
-            <ErrorText error={error} />
-        </AuthContainer>
+                <button
+                    disabled={registering}
+                    onClick={() =>
+                        signUpWithEmailAndPassword({
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                        })
+                    }
+                >
+                    Sign Up
+                </button>
+                <p>
+                    Already have an account? <Link to="/login">Login.</Link>
+                </p>
+                <ErrorText error={error} />
+            </form>
+        </Layout>
     );
-}
+};
 
 export default RegisterPage;

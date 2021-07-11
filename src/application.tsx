@@ -1,52 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
-import { Spinner } from 'reactstrap';
 import AuthRoute from './components/AuthRoute';
 import { auth } from './config/firebase';
 import logging from './config/logging';
 import routes from './config/routes';
 
-export interface IApplicationProps { }
+export interface IApplicationProps {}
 
-const Application: React.FunctionComponent<IApplicationProps> = props => {
+const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        auth.onAuthStateChanged(user => {
-            if (user)
-            {
+        auth.onAuthStateChanged((user: any) => {
+            if (user) {
                 logging.info('User detected.');
-            }
-            else
-            {
+            } else {
                 logging.info('No user detected');
             }
 
             setLoading(false);
-        })
+        });
     }, []);
 
-    if (loading)
-        return <Spinner color="info" />
+    if (loading) return <h2>Loading...</h2>;
 
     return (
-        <div>
+        <>
             <Switch>
-                {routes.map((route, index) => 
+                {routes.map((route, index) => (
                     <Route
                         key={index}
-                        path={route.path} 
-                        exact={route.exact} 
+                        path={route.path}
+                        exact={route.exact}
                         render={(routeProps: RouteComponentProps<any>) => {
                             if (route.protected)
-                                return <AuthRoute><route.component  {...routeProps} /></AuthRoute>;
+                                return (
+                                    <AuthRoute>
+                                        <route.component {...routeProps} />
+                                    </AuthRoute>
+                                );
 
-                            return <route.component  {...routeProps} />;
+                            return <route.component {...routeProps} />;
                         }}
-                    />)}
+                    />
+                ))}
             </Switch>
-        </div>
+        </>
     );
-}
+};
 
 export default Application;

@@ -1,0 +1,42 @@
+main {
+    width: 100%;
+    .user {
+        height: 35vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .chapter-bar {
+            width: 30rem;
+            height: 1rem;
+            margin: 2rem 0 2rem 0;
+
+            border: 1px solid black;
+            border-radius: 2rem;
+
+            .bar {
+                height: 100%;
+                background: rgb(177, 38, 38);
+
+                border-radius: 2rem;
+            }
+        }
+
+        .prevnext {
+            width: 30rem;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .books {
+        height: 35vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}

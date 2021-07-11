@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { RouteComponentProps, useHistory } from 'react-router-dom';
-import { Button, FormGroup, Input, Spinner } from 'reactstrap';
-import AuthContainer from '../../components/AuthContainer';
 import ErrorText from '../../components/ErrorText';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';
 import queryString from 'querystring';
+import Layout from '../../components/Layout';
 
-const ResetPasswordPage: React.FunctionComponent<IPageProps & RouteComponentProps> = props => {
+const ResetPasswordPage: React.FunctionComponent<
+    IPageProps & RouteComponentProps
+> = (props) => {
     const [verifying, setVerifying] = useState<boolean>(true);
     const [verified, setVerified] = useState<boolean>(false);
     const [changing, setChanging] = useState<boolean>(false);
@@ -24,24 +25,18 @@ const ResetPasswordPage: React.FunctionComponent<IPageProps & RouteComponentProp
 
         let stringParams = queryString.parse(props.location.search);
 
-        if (stringParams)
-        {
+        if (stringParams) {
             let oobCode = stringParams.oobCode as string;
 
-            if (oobCode)
-            {
+            if (oobCode) {
                 logging.info('Code found');
                 verifyPasswordResetLink(oobCode);
-            }
-            else
-            {
+            } else {
                 logging.error('Unable to find code');
                 setVerified(false);
                 setVerifying(false);
             }
-        }
-        else
-        {
+        } else {
             logging.error('Unable to find code');
             setVerified(false);
             setVerifying(false);
@@ -51,22 +46,21 @@ const ResetPasswordPage: React.FunctionComponent<IPageProps & RouteComponentProp
 
     const verifyPasswordResetLink = (_oobCode: string) => {
         auth.verifyPasswordResetCode(_oobCode)
-        .then(result => {
-            logging.info(result);
-            setOobCode(_oobCode);
-            setVerified(true);
-            setVerifying(false);
-        })
-        .catch(error => {
-            logging.error(error);
-            setVerified(false);
-            setVerifying(false);
-        });
-    }
+            .then((result) => {
+                logging.info(result);
+                setOobCode(_oobCode);
+                setVerified(true);
+                setVerifying(false);
+            })
+            .catch((error) => {
+                logging.error(error);
+                setVerified(false);
+                setVerifying(false);
+            });
+    };
 
     const passwordResetRequest = () => {
-        if (password !== confirm)
-        {
+        if (password !== confirm) {
             setError('Make sure your passwords are matching');
             return;
         }
@@ -76,64 +70,63 @@ const ResetPasswordPage: React.FunctionComponent<IPageProps & RouteComponentProp
         setChanging(true);
 
         auth.confirmPasswordReset(oobCode, password)
-        .then(() => {
-            history.push('/login');
-        })
-        .catch(error => {
-            logging.error(error);
-            setError(error.message);
-            setChanging(false);
-        })
-    }
+            .then(() => {
+                history.push('/login');
+            })
+            .catch((error) => {
+                logging.error(error);
+                setError(error.message);
+                setChanging(false);
+            });
+    };
 
     return (
-        <AuthContainer header="Reset Password">
-            {verifying ?
-                <Spinner color="info" />
-            :
+        <Layout>
+            {verifying ? (
+                <p>Loading...</p>
+            ) : (
                 <>
-                    {verified ?
+                    {verified ? (
                         <>
                             <p>Please enter a strong password.</p>
-                            <FormGroup>
-                                <Input 
-                                    autoComplete="new-password"
-                                    type="password"
-                                    name="password"
-                                    id="password"
-                                    placeholder="Enter Password"
-                                    onChange={event => setPassword(event.target.value)}
-                                    value={password}
-                                />
-                            </FormGroup>
-                            <FormGroup>
-                                <Input 
-                                    autoComplete="new-password"
-                                    type="password"
-                                    name="confirm"
-                                    id="confirm"
-                                    placeholder="Confirm Password"
-                                    onChange={event => setConfirm(event.target.value)}
-                                    value={confirm}
-                                />
-                            </FormGroup>
-                            <Button
+                            <input
+                                autoComplete="new-password"
+                                type="password"
+                                name="password"
+                                id="password"
+                                placeholder="Enter your new password"
+                                onChange={(event) =>
+                                    setPassword(event.target.value)
+                                }
+                                value={password}
+                            />
+                            <input
+                                autoComplete="new-password"
+                                type="password"
+                                name="confirm"
+                                id="confirm"
+                                placeholder="Confirm your new password"
+                                onChange={(event) =>
+                                    setConfirm(event.target.value)
+                                }
+                                value={confirm}
+                            />
+                            <button
                                 disabled={changing}
-                                color="success"
-                                block
                                 onClick={() => passwordResetRequest()}
                             >
                                 Reset Password
-                            </Button>
-                            <ErrorText error={error} />
+                            </button>{' '}
                         </>
-                    :
-                        <p>Invalid link.</p>
-                    }
+                    ) : (
+                        <>
+                            <p>Invalid code.</p>
+                        </>
+                    )}
                 </>
-            }
-        </AuthContainer>
+            )}
+        </Layout>
     );
-}
+};
 
 export default ResetPasswordPage;
