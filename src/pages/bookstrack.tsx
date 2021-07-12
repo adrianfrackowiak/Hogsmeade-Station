@@ -9,6 +9,7 @@ interface Book {
     title: string;
     chapters: string[];
     chapters_amount: number;
+    img: string;
 }
 
 interface CurrentBook {
@@ -48,6 +49,8 @@ const BooksTrack: React.FC = () => {
 
     const [loading, setLoading]: [boolean, (loading: boolean) => void] =
         useState<boolean>(true);
+
+    const [bookNav, setBookNav] = useState<number>(0);
 
     const getDatabaseBook = () => {
         const database = db.ref();
@@ -102,22 +105,7 @@ const BooksTrack: React.FC = () => {
         }
     };
 
-    const bookChange = (
-        newTitle: string,
-        newChapter: string,
-        prev: string,
-        next: string
-    ) => {
-        const newCurrentBook: CurrentBook = {
-            title: newTitle,
-            chapter: newChapter,
-            prevChapter: prev,
-            nextChapter: next,
-        };
-        setCurrentBook(newCurrentBook);
-        pushToDataBase(newCurrentBook);
-        getDatabaseBook();
-
+    const bookChange = (newTitle: string) => {
         if (displayChapters.bool && displayChapters.book === newTitle) {
             setDisplayChapters({ bool: false, book: '' });
         } else {
@@ -144,10 +132,14 @@ const BooksTrack: React.FC = () => {
         getDatabaseBook();
     };
 
+    const navChange = (id: number) => {
+        setBookNav(id - 1);
+    };
+
     return (
         <Layout>
-            <main>
-                <div className="user">
+            <main className="bookstrack">
+                <div className="bookstrack__userdata">
                     <p>You're now in</p>
                     {isDatabaseBook ? (
                         <>
@@ -187,52 +179,27 @@ const BooksTrack: React.FC = () => {
                         </>
                     )}
                 </div>
-                <div className="books">
-                    {booksList.map((book) => {
-                        return (
-                            <div className="book" key={book.id}>
-                                <h3
-                                    onClick={() => {
-                                        bookChange(
-                                            book.title,
-                                            book.chapters[0],
-                                            '',
-                                            book.chapters[1]
-                                        );
-                                    }}
-                                >
-                                    {book.title}
-                                </h3>
-                                <ul className="chapters-list">
-                                    {displayChapters.book === book.title
-                                        ? book.chapters.map((chapter, key) => {
-                                              return (
-                                                  <li
-                                                      key={chapter}
-                                                      onClick={() =>
-                                                          chapterChange(
-                                                              book.title,
-                                                              chapter,
-                                                              book.chapters[
-                                                                  key - 1
-                                                              ],
-                                                              book.chapters[
-                                                                  key + 1
-                                                              ],
-                                                              key,
-                                                              book.chapters_amount
-                                                          )
-                                                      }
-                                                  >
-                                                      {chapter}
-                                                  </li>
-                                              );
-                                          })
-                                        : ''}
-                                </ul>
-                            </div>
-                        );
-                    })}
+                <div className="bookstrack__books">
+                    <nav className="bookstrack__books__nav">
+                        <ul>
+                            {booksList.map((book) => {
+                                return (
+                                    <li>
+                                        <button
+                                            onClick={() => navChange(book.id)}
+                                        >
+                                            {book.id}
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </nav>
+                    <div className="bookstrack__books__main">
+                        <div className="bookstrack__books__main__img">
+                            <img src={booksList[bookNav].img} alt="" />
+                        </div>
+                    </div>
                 </div>
             </main>
         </Layout>
