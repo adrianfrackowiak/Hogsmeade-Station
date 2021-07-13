@@ -4,3 +4,14 @@ html {
     margin: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: 'Cinzel', serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    background-color: #0e0e16;
+    background-image: url('../images/bg.png');
+    background-repeat: no-repeat;
+    color: white;
+}

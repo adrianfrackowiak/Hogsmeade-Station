@@ -3,6 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 import { auth, db } from '../config/firebase';
 import Layout from '../components/Layout';
 import logging from '../config/logging';
+import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
 
 interface Book {
     id: number;
@@ -10,18 +11,14 @@ interface Book {
     chapters: string[];
     chapters_amount: number;
     img: string;
+    desc: string;
 }
 
 interface CurrentBook {
     title?: string;
     chapter?: string;
-    prevChapter?: string;
-    nextChapter?: string;
-}
-
-interface DisplayChapters {
-    bool: boolean;
-    book: string;
+    chapter_key?: number;
+    chapters_amount?: number;
 }
 
 const BooksTrack: React.FC = () => {
@@ -29,28 +26,32 @@ const BooksTrack: React.FC = () => {
     const [currentBook, setCurrentBook] = useState<CurrentBook>({
         title: `Harry Potter and the Philosopher's Stone`,
         chapter: 'The Boy Who Lived',
-        prevChapter: '',
-        nextChapter: 'The Vanishing Glass',
     });
 
     const [databaseBook, setDatabaseBook] = useState<CurrentBook>({
         title: ``,
         chapter: '',
-        prevChapter: '',
-        nextChapter: '',
+        chapter_key: 0,
+        chapters_amount: 0,
     });
 
     const [isDatabaseBook, setIsDatabaseBook] = useState<boolean>(false);
 
-    const [displayChapters, setDisplayChapters] = useState<DisplayChapters>({
-        bool: false,
-        book: '',
-    });
-
     const [loading, setLoading]: [boolean, (loading: boolean) => void] =
         useState<boolean>(true);
 
+    const [progress, setProgress] = useState<number>(0);
+
+    const progressWidth = {
+        width: `${progress}%`,
+        background: `white`,
+        height: `100%`,
+        borderRadius: `10rem`,
+    };
+
     const [bookNav, setBookNav] = useState<number>(0);
+
+    const [chaptersNav, setChaptersNav] = useState<number[]>([0, 3]);
 
     const getDatabaseBook = () => {
         const database = db.ref();
@@ -66,9 +67,17 @@ const BooksTrack: React.FC = () => {
                         setDatabaseBook({
                             title: snapshot.val().bookstrack.title,
                             chapter: snapshot.val().bookstrack.chapter,
-                            prevChapter: snapshot.val().bookstrack.prevChapter,
-                            nextChapter: snapshot.val().bookstrack.nextChapter,
+                            chapter_key: snapshot.val().bookstrack.chapter_key,
+                            chapters_amount:
+                                snapshot.val().bookstrack.chapters_amount,
                         });
+                        setProgress(
+                            Math.floor(
+                                (snapshot.val().bookstrack.chapter_key /
+                                    snapshot.val().bookstrack.chapters_amount) *
+                                    100
+                            )
+                        );
                     } else {
                         setIsDatabaseBook(false);
                         console.log('No data available');
@@ -105,35 +114,40 @@ const BooksTrack: React.FC = () => {
         }
     };
 
-    const bookChange = (newTitle: string) => {
-        if (displayChapters.bool && displayChapters.book === newTitle) {
-            setDisplayChapters({ bool: false, book: '' });
-        } else {
-            setDisplayChapters({ bool: true, book: newTitle });
-        }
-    };
-
     const chapterChange = (
         title: string,
         newChapter: string,
-        prev: string,
-        next: string,
         chapterNum: number,
         chaptersAmount: number
     ) => {
         const newCurrentChapter: CurrentBook = {
             title: title,
             chapter: newChapter,
-            prevChapter: prev,
-            nextChapter: next,
+            chapter_key: chapterNum,
+            chapters_amount: chaptersAmount,
         };
         setCurrentBook(newCurrentChapter);
         pushToDataBase(newCurrentChapter);
         getDatabaseBook();
+
+        setProgress(Math.floor((chapterNum / chaptersAmount) * 100));
     };
 
     const navChange = (id: number) => {
         setBookNav(id - 1);
+        setChaptersNav([0, 3]);
+    };
+
+    const chaptersNavChange = (btn: string) => {
+        if (btn === 'prev') {
+            if (chaptersNav[0] !== 0) {
+                setChaptersNav([chaptersNav[0] - 1, chaptersNav[1] - 1]);
+            }
+        } else if (btn === 'next') {
+            if (chaptersNav[1] !== booksList[bookNav].chapters_amount) {
+                setChaptersNav([chaptersNav[0] + 1, chaptersNav[1] + 1]);
+            }
+        }
     };
 
     return (
@@ -141,49 +155,30 @@ const BooksTrack: React.FC = () => {
             <main className="bookstrack">
                 <div className="bookstrack__userdata">
                     <p>You're now in</p>
-                    {isDatabaseBook ? (
-                        <>
-                            <h2>{databaseBook.chapter}</h2>
-                            <p>{databaseBook.title}</p>
-                            <div className="prevnext">
-                                {databaseBook.prevChapter === '' ||
-                                databaseBook.prevChapter === undefined ? (
-                                    <p></p>
-                                ) : (
-                                    <p>Prev: {databaseBook.prevChapter}</p>
-                                )}
-                                {databaseBook.nextChapter === undefined ? (
-                                    <p></p>
-                                ) : (
-                                    <p>Next: {databaseBook.nextChapter}</p>
-                                )}
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <h2>{currentBook.chapter}</h2>
-                            <p>{currentBook.title}</p>
-                            <div className="prevnext">
-                                {currentBook.prevChapter === '' ||
-                                currentBook.prevChapter === undefined ? (
-                                    <p></p>
-                                ) : (
-                                    <p>Prev: {currentBook.prevChapter}</p>
-                                )}
-                                {currentBook.nextChapter === undefined ? (
-                                    <p></p>
-                                ) : (
-                                    <p>Next: {currentBook.nextChapter}</p>
-                                )}
-                            </div>
-                        </>
-                    )}
+                    <h2>{databaseBook.chapter}</h2>
+                    <h3>{databaseBook.title}</h3>
+                    <div className="bookstrack__userdata__progressbar">
+                        <div style={progressWidth}></div>
+                    </div>
+                    <p>
+                        Choose a book and a chapter you're reading now and track
+                        it.
+                    </p>
                 </div>
                 <div className="bookstrack__books">
                     <nav className="bookstrack__books__nav">
                         <ul>
                             {booksList.map((book) => {
-                                return (
+                                return bookNav === book.id - 1 ? (
+                                    <li>
+                                        <button
+                                            className="book-active"
+                                            onClick={() => navChange(book.id)}
+                                        >
+                                            {book.id}
+                                        </button>
+                                    </li>
+                                ) : (
                                     <li>
                                         <button
                                             onClick={() => navChange(book.id)}
@@ -199,6 +194,52 @@ const BooksTrack: React.FC = () => {
                         <div className="bookstrack__books__main__img">
                             <img src={booksList[bookNav].img} alt="" />
                         </div>
+                        <div className="bookstrack__books__main__info">
+                            <h2>{booksList[bookNav].title}</h2>
+                            <p>{booksList[bookNav].desc}</p>
+                        </div>
+                    </div>
+                    <div className="bookstrack__books__main__chapters">
+                        <ul>
+                            <button
+                                type="button"
+                                onClick={() => chaptersNavChange('prev')}
+                            >
+                                <BiLeftArrow />
+                            </button>
+                            {booksList[bookNav].chapters
+                                .slice(chaptersNav[0], chaptersNav[1])
+                                .map((chapter, index) => {
+                                    const chapterNum =
+                                        booksList[bookNav].chapters.indexOf(
+                                            chapter
+                                        );
+                                    return (
+                                        <li key={index}>
+                                            <button
+                                                onClick={() =>
+                                                    chapterChange(
+                                                        booksList[bookNav]
+                                                            .title,
+                                                        chapter,
+                                                        chapterNum,
+                                                        booksList[bookNav]
+                                                            .chapters_amount
+                                                    )
+                                                }
+                                            >
+                                                {chapter}
+                                            </button>
+                                        </li>
+                                    );
+                                })}
+                            <button
+                                type="button"
+                                onClick={() => chaptersNavChange('next')}
+                            >
+                                <BiRightArrow />
+                            </button>
+                        </ul>
                     </div>
                 </div>
             </main>
