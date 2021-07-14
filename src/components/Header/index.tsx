@@ -16,7 +16,9 @@ const Header: React.FC = () => {
                     <li>
                         <Link to="/bookstracker">Books Tracker</Link>
                     </li>
-                    <li>Sorting Hat</li>
+                    <li>
+                        <Link to="/sortinghat">Sorting Hat</Link>
+                    </li>
                     <li>Favorites</li>
                 </ul>
                 {auth.currentUser ? (

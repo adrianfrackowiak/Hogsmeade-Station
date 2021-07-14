@@ -8,6 +8,7 @@ import ResetPasswordPage from '../pages/auth/reset';
 import BooksTrack from '../pages/bookstrack';
 import HomePage from '../pages/home';
 import ProfilePage from '../pages/profile';
+import SortingHatPage from '../pages/sortinghat';
 
 const routes: IRoute[] = [
     {
@@ -71,6 +72,13 @@ const routes: IRoute[] = [
         exact: true,
         component: BooksTrack,
         name: 'Books Tracker Page',
+        protected: true,
+    },
+    {
+        path: '/sortinghat',
+        exact: true,
+        component: SortingHatPage,
+        name: 'Sorting Hat Page',
         protected: true,
     },
 ];

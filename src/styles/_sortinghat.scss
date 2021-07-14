@@ -1,0 +1,34 @@
+.sortinghat {
+    width: 100%;
+    height: 75vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+        font-size: 2rem;
+        margin: 0 0 2rem 0;
+    }
+
+    p {
+        font-size: 4rem;
+    }
+
+    ul {
+        display: flex;
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+    .houses {
+        display: flex;
+        margin: 4rem 0 0 0;
+
+        h3 {
+            margin: 0 3rem;
+        }
+    }
+}
