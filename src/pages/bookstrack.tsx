@@ -157,6 +157,7 @@ const BooksTrack: React.FC = () => {
                     <p>You're now in</p>
                     <h2>{databaseBook.chapter}</h2>
                     <h3>{databaseBook.title}</h3>
+                    <p>{`Chapter ${databaseBook.chapter_key} / ${databaseBook.chapters_amount}`}</p>
                     <div className="bookstrack__userdata__progressbar">
                         <div style={progressWidth}></div>
                     </div>
