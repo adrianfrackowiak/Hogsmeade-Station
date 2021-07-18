@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import Layout from '../components/Layout';
 import { auth, db } from '../config/firebase';
 import IPageProps from '../interfaces/page';
+import bgG from '../static/images/bggryffindor.png';
+import bgR from '../static/images/bgravenclaw.png';
+import bgS from '../static/images/bgslytherin.png';
+import bgH from '../static/images/bghufflepuff.png';
 
 const ProfilePage: React.FunctionComponent<IPageProps> = (props) => {
+    useEffect(() => {
+        document.body.style.backgroundImage = `url(${bgG})`;
+    }, []);
+
     return (
-        <>
-            <p>Welcome to this page that is protected by Friebase auth!</p>
-            <p>
-                Change your password <Link to="/change">here</Link>.
-            </p>
-            <p>
-                Click <Link to="/logout">here</Link> to logout. Hello{' '}
-                {auth.currentUser?.uid}
-            </p>
-        </>
+        <Layout>
+            <main>
+                <h2>Home page</h2>
+            </main>
+        </Layout>
     );
 };
 

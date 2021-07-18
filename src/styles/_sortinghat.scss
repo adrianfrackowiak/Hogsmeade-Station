@@ -12,23 +12,38 @@
         margin: 0 0 2rem 0;
     }
 
-    p {
-        font-size: 4rem;
-    }
+    &__questionbox {
+        p {
+            font-size: 3rem;
+            margin: 0 0 2rem 0;
+            text-align: center;
+        }
 
-    ul {
-        display: flex;
-        width: 100%;
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
 
-        justify-content: space-between;
-    }
+            li {
+                list-style: none;
+                height: 4rem;
 
-    .houses {
-        display: flex;
-        margin: 4rem 0 0 0;
+                button {
+                    margin: 0.75rem 0;
+                    background: none;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    color: white;
+                    font-family: 'Cinzel', serif;
+                    font-size: 1rem;
+                }
 
-        h3 {
-            margin: 0 3rem;
+                button:hover {
+                    border-bottom: 1px solid white;
+                }
+            }
         }
     }
 }

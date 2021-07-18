@@ -4,6 +4,7 @@ import { auth, db } from '../config/firebase';
 import Layout from '../components/Layout';
 import logging from '../config/logging';
 import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
+import bgimg from '../static/images/bglib.png';
 
 interface Book {
     id: number;
@@ -90,6 +91,7 @@ const BooksTrack: React.FC = () => {
     };
 
     useEffect(() => {
+        document.body.style.backgroundImage = `url(${bgimg})`;
         getDatabaseBook();
 
         axios

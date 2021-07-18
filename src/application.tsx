@@ -4,6 +4,7 @@ import AuthRoute from './components/AuthRoute';
 import { auth } from './config/firebase';
 import logging from './config/logging';
 import routes from './config/routes';
+import bgimg from './static/images/bg.png';
 
 export interface IApplicationProps {}
 
@@ -11,6 +12,8 @@ const Application: React.FunctionComponent<IApplicationProps> = (props) => {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        document.body.style.backgroundImage = `url(${bgimg})`;
+
         auth.onAuthStateChanged((user: any) => {
             if (user) {
                 logging.info('User detected.');

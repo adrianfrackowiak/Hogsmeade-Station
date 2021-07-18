@@ -1,6 +1,9 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
 import Layout from '../components/Layout';
+import { auth, db } from '../config/firebase';
+import logging from '../config/logging';
+import bgimg from '../static/images/bgsortinghat.png';
 
 interface Question {
     id: number;
@@ -38,6 +41,8 @@ const SortingHatPage: React.FC = () => {
     const [house, setHouse] = useState<string>('');
 
     useEffect(() => {
+        document.body.style.backgroundImage = `url(${bgimg})`;
+
         axios
             .get<Question[]>('https://hp---api.herokuapp.com/sortinghat')
             .then((response: AxiosResponse) => {
@@ -45,6 +50,16 @@ const SortingHatPage: React.FC = () => {
                 setLoading(false);
             });
     }, []);
+
+    const pushToDataBase = (house: string) => {
+        if (auth.currentUser) {
+            const id = auth.currentUser.uid;
+            const database = db.ref(`users/${id}/house`);
+            database.set(house).catch((error: any) => {
+                logging.error(error);
+            });
+        }
+    };
 
     useEffect(() => {
         console.log(housesPoints);
@@ -57,10 +72,20 @@ const SortingHatPage: React.FC = () => {
             )
         );
 
-        const housesArr = Object.entries(housesPoints);
+        const objHouses = Object.entries(housesPoints);
+        let max: number = 0;
+        let maxHouse: string = '';
 
-        console.log(housesArr[0][1]);
-    }, [housesPoints]);
+        objHouses.map((house) => {
+            if (max < house[1]) {
+                max = house[1];
+                maxHouse = house[0];
+            }
+            setHouse(maxHouse);
+        });
+
+        if (questionNum === 14) pushToDataBase(house);
+    }, [housesPoints, house, questionNum]);
 
     const updateHousesPoints = (
         gryf: number,
@@ -87,12 +112,15 @@ const SortingHatPage: React.FC = () => {
     return (
         <Layout>
             <main className="sortinghat">
-                <h2>Sorting</h2>
+                <h2>Sorting Hat</h2>
                 {questionNum !== 14 ? (
                     questions.map((question, key) => {
                         if (key === questionNum) {
                             return (
-                                <div key={key}>
+                                <div
+                                    className="sortinghat__questionbox"
+                                    key={key}
+                                >
                                     <p>{question.question}</p>
                                     <ul>
                                         {question.answers.map((answer) => {
@@ -122,12 +150,6 @@ const SortingHatPage: React.FC = () => {
                 ) : (
                     <p>{house}</p>
                 )}
-                <div className="houses">
-                    <h3>Gryffindor: {housesPoints.gryffindor}</h3>
-                    <h3>Ravenclaw: {housesPoints.ravenclaw}</h3>
-                    <h3>Hufflepuff: {housesPoints.hufflepuff}</h3>
-                    <h3>Slytherin: {housesPoints.slytherin}</h3>
-                </div>
             </main>
         </Layout>
     );
