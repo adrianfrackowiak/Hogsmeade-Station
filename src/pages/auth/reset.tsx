@@ -81,7 +81,7 @@ const ResetPasswordPage: React.FunctionComponent<
     };
 
     return (
-        <Layout>
+        <>
             {verifying ? (
                 <p>Loading...</p>
             ) : (
@@ -125,7 +125,7 @@ const ResetPasswordPage: React.FunctionComponent<
                     )}
                 </>
             )}
-        </Layout>
+        </>
     );
 };
 

@@ -11,11 +11,9 @@ const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     }, []);
 
     return (
-        <Layout>
-            <main>
-                <h2>Home page</h2>
-            </main>
-        </Layout>
+        <main>
+            <h2>Home page</h2>
+        </main>
     );
 };
 

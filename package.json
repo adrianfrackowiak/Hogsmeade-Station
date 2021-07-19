@@ -10,6 +10,8 @@
         "@types/node": "^12.19.14",
         "@types/react": "^16.14.2",
         "@types/react-dom": "^16.9.10",
+        "animate.css": "^4.1.1",
+        "animate.css-react": "^1.1.0",
         "axios": "^0.21.1",
         "firebase": "^8.2.3",
         "node-sass": "^4.14.0",

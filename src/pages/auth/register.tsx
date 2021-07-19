@@ -60,68 +60,66 @@ const RegisterPage: React.FunctionComponent<IPageProps> = (props) => {
     };
 
     return (
-        <Layout>
-            <form>
-                <input
-                    type="first-name"
-                    name="first-name"
-                    id="first-name"
-                    placeholder="Enter your first name"
-                    onChange={(event) => setFirstName(event.target.value)}
-                    value={firstName}
-                />
-                <input
-                    type="last-name"
-                    name="last-name"
-                    id="last-name"
-                    placeholder="Enter your last name"
-                    onChange={(event) => setLastName(event.target.value)}
-                    value={lastName}
-                />
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    placeholder="Enter your email address"
-                    onChange={(event) => setEmail(event.target.value)}
-                    value={email}
-                />
-                <input
-                    autoComplete="new-password"
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    onChange={(event) => setPassword(event.target.value)}
-                    value={password}
-                />
-                <input
-                    autoComplete="new-password"
-                    type="password"
-                    name="confirm"
-                    id="confirm"
-                    placeholder="Confirm your password"
-                    onChange={(event) => setConfirm(event.target.value)}
-                    value={confirm}
-                />
-                <button
-                    disabled={registering}
-                    onClick={() =>
-                        signUpWithEmailAndPassword({
-                            firstName: firstName,
-                            lastName: lastName,
-                            email: email,
-                        })
-                    }
-                >
-                    Sign Up
-                </button>
-                <p>
-                    Already have an account? <Link to="/login">Login.</Link>
-                </p>
-                <ErrorText error={error} />
-            </form>
-        </Layout>
+        <form>
+            <input
+                type="first-name"
+                name="first-name"
+                id="first-name"
+                placeholder="Enter your first name"
+                onChange={(event) => setFirstName(event.target.value)}
+                value={firstName}
+            />
+            <input
+                type="last-name"
+                name="last-name"
+                id="last-name"
+                placeholder="Enter your last name"
+                onChange={(event) => setLastName(event.target.value)}
+                value={lastName}
+            />
+            <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email address"
+                onChange={(event) => setEmail(event.target.value)}
+                value={email}
+            />
+            <input
+                autoComplete="new-password"
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                onChange={(event) => setPassword(event.target.value)}
+                value={password}
+            />
+            <input
+                autoComplete="new-password"
+                type="password"
+                name="confirm"
+                id="confirm"
+                placeholder="Confirm your password"
+                onChange={(event) => setConfirm(event.target.value)}
+                value={confirm}
+            />
+            <button
+                disabled={registering}
+                onClick={() =>
+                    signUpWithEmailAndPassword({
+                        firstName: firstName,
+                        lastName: lastName,
+                        email: email,
+                    })
+                }
+            >
+                Sign Up
+            </button>
+            <p>
+                Already have an account? <Link to="/login">Login.</Link>
+            </p>
+            <ErrorText error={error} />
+        </form>
     );
 };
 

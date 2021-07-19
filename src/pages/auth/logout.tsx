@@ -15,13 +15,13 @@ const LogoutPage: React.FunctionComponent<IPageProps> = (props) => {
     };
 
     return (
-        <Layout>
+        <>
             <p>Are you sure you want to logout?</p>
             <div>
                 <button onClick={() => history.goBack()}>Cancel</button>
                 <button onClick={() => Logout()}>Logout</button>
             </div>
-        </Layout>
+        </>
     );
 };
 

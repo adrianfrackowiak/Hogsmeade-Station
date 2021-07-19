@@ -30,7 +30,7 @@ const ForgotPasswordPage: React.FunctionComponent<IPageProps> = (props) => {
     };
 
     return (
-        <Layout>
+        <>
             {sent ? (
                 <p>A link has been sent to your email with instructions.</p>
             ) : (
@@ -55,7 +55,7 @@ const ForgotPasswordPage: React.FunctionComponent<IPageProps> = (props) => {
                     </form>
                 </>
             )}
-        </Layout>
+        </>
     );
 };
 

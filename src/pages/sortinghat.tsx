@@ -1,8 +1,10 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { auth, db } from '../config/firebase';
 import logging from '../config/logging';
+import IProfile from '../interfaces/profile';
 import bgimg from '../static/images/bgsortinghat.png';
 
 interface Question {
@@ -26,7 +28,7 @@ interface Houses {
     slytherin: number;
 }
 
-const SortingHatPage: React.FC = () => {
+const SortingHatPage: React.FC<IProfile> = (userProfile) => {
     const [loading, setLoading]: [boolean, (loading: boolean) => void] =
         useState<boolean>(true);
 
@@ -105,53 +107,52 @@ const SortingHatPage: React.FC = () => {
         setQuestionNum(questionNum + 1);
     };
 
+    if (userProfile.house !== undefined) {
+        return <Redirect to="/profile" />;
+    }
+
     if (loading) {
         return <h2>Loading...</h2>;
     }
 
     return (
-        <Layout>
-            <main className="sortinghat">
-                <h2>Sorting Hat</h2>
-                {questionNum !== 14 ? (
-                    questions.map((question, key) => {
-                        if (key === questionNum) {
-                            return (
-                                <div
-                                    className="sortinghat__questionbox"
-                                    key={key}
-                                >
-                                    <p>{question.question}</p>
-                                    <ul>
-                                        {question.answers.map((answer) => {
-                                            return (
-                                                <li>
-                                                    <button
-                                                        onClick={() => {
-                                                            updateHousesPoints(
-                                                                answer.gryffindor,
-                                                                answer.ravenclaw,
-                                                                answer.hufflepuff,
-                                                                answer.slytherin
-                                                            );
-                                                            nextQuestion();
-                                                        }}
-                                                    >
-                                                        {answer.name}
-                                                    </button>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </div>
-                            );
-                        }
-                    })
-                ) : (
-                    <p>{house}</p>
-                )}
-            </main>
-        </Layout>
+        <main className="sortinghat">
+            <h2>Sorting Hat</h2>
+            {questionNum !== 14 ? (
+                questions.map((question, key) => {
+                    if (key === questionNum) {
+                        return (
+                            <div className="sortinghat__questionbox" key={key}>
+                                <p>{question.question}</p>
+                                <ul>
+                                    {question.answers.map((answer) => {
+                                        return (
+                                            <li>
+                                                <button
+                                                    onClick={() => {
+                                                        updateHousesPoints(
+                                                            answer.gryffindor,
+                                                            answer.ravenclaw,
+                                                            answer.hufflepuff,
+                                                            answer.slytherin
+                                                        );
+                                                        nextQuestion();
+                                                    }}
+                                                >
+                                                    {answer.name}
+                                                </button>
+                                            </li>
+                                        );
+                                    })}
+                                </ul>
+                            </div>
+                        );
+                    }
+                })
+            ) : (
+                <p>{house}</p>
+            )}
+        </main>
     );
 };
 

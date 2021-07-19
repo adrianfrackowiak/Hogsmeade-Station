@@ -1,0 +1,33 @@
+.profile {
+    width: 100%;
+
+    &__info {
+        height: 85vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+            font-size: 5rem;
+        }
+    }
+
+    &__bookstrack {
+        height: 100vh;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        &__progressbar {
+            width: 50rem;
+            height: 3rem;
+            border: 1px solid white;
+            border-radius: 10rem;
+            margin: 1rem 0 2rem 0;
+        }
+    }
+}

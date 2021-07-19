@@ -16,6 +16,7 @@ interface Book {
 }
 
 interface CurrentBook {
+    id?: number;
     title?: string;
     chapter?: string;
     chapter_key?: number;
@@ -30,6 +31,7 @@ const BooksTrack: React.FC = () => {
     });
 
     const [databaseBook, setDatabaseBook] = useState<CurrentBook>({
+        id: 0,
         title: ``,
         chapter: '',
         chapter_key: 0,
@@ -66,6 +68,7 @@ const BooksTrack: React.FC = () => {
                     if (snapshot.child('bookstrack').exists()) {
                         setIsDatabaseBook(true);
                         setDatabaseBook({
+                            id: snapshot.val().bookstrack.id,
                             title: snapshot.val().bookstrack.title,
                             chapter: snapshot.val().bookstrack.chapter,
                             chapter_key: snapshot.val().bookstrack.chapter_key,
@@ -117,12 +120,14 @@ const BooksTrack: React.FC = () => {
     };
 
     const chapterChange = (
+        id: number,
         title: string,
         newChapter: string,
         chapterNum: number,
         chaptersAmount: number
     ) => {
         const newCurrentChapter: CurrentBook = {
+            id: id,
             title: title,
             chapter: newChapter,
             chapter_key: chapterNum,
@@ -153,100 +158,95 @@ const BooksTrack: React.FC = () => {
     };
 
     return (
-        <Layout>
-            <main className="bookstrack">
-                <div className="bookstrack__userdata">
-                    <p>You're now in</p>
-                    <h2>{databaseBook.chapter}</h2>
-                    <h3>{databaseBook.title}</h3>
-                    <p>{`Chapter ${databaseBook.chapter_key} / ${databaseBook.chapters_amount}`}</p>
-                    <div className="bookstrack__userdata__progressbar">
-                        <div style={progressWidth}></div>
-                    </div>
-                    <p>
-                        Choose a book and a chapter you're reading now and track
-                        it.
-                    </p>
+        <main className="bookstrack">
+            <div className="bookstrack__userdata">
+                <p>You're now in</p>
+                <h2>{databaseBook.chapter}</h2>
+                <h3>{databaseBook.title}</h3>
+                <p>{`Chapter ${databaseBook.chapter_key} / ${databaseBook.chapters_amount}`}</p>
+                <div className="bookstrack__userdata__progressbar">
+                    <div style={progressWidth}></div>
                 </div>
-                <div className="bookstrack__books">
-                    <nav className="bookstrack__books__nav">
-                        <ul>
-                            {booksList.map((book) => {
-                                return bookNav === book.id - 1 ? (
-                                    <li>
+                <p>
+                    Choose a book and a chapter you're reading now and track it.
+                </p>
+            </div>
+            <div className="bookstrack__books">
+                <nav className="bookstrack__books__nav">
+                    <ul>
+                        {booksList.map((book) => {
+                            return bookNav === book.id - 1 ? (
+                                <li>
+                                    <button
+                                        className="book-active"
+                                        onClick={() => navChange(book.id)}
+                                    >
+                                        {book.id}
+                                    </button>
+                                </li>
+                            ) : (
+                                <li>
+                                    <button onClick={() => navChange(book.id)}>
+                                        {book.id}
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </nav>
+                <div className="bookstrack__books__main">
+                    <div className="bookstrack__books__main__img">
+                        <img src={booksList[bookNav].img} alt="" />
+                    </div>
+                    <div className="bookstrack__books__main__info">
+                        <h2>{booksList[bookNav].title}</h2>
+                        <p>{booksList[bookNav].desc}</p>
+                    </div>
+                </div>
+                <div className="bookstrack__books__main__chapters">
+                    <ul>
+                        <button
+                            type="button"
+                            onClick={() => chaptersNavChange('prev')}
+                        >
+                            <BiLeftArrow />
+                        </button>
+                        {booksList[bookNav].chapters
+                            .slice(chaptersNav[0], chaptersNav[1])
+                            .map((chapter, index) => {
+                                const chapterNum =
+                                    booksList[bookNav].chapters.indexOf(
+                                        chapter
+                                    );
+                                return (
+                                    <li key={index}>
                                         <button
-                                            className="book-active"
-                                            onClick={() => navChange(book.id)}
+                                            onClick={() =>
+                                                chapterChange(
+                                                    booksList[bookNav].id,
+                                                    booksList[bookNav].title,
+                                                    chapter,
+                                                    chapterNum,
+                                                    booksList[bookNav]
+                                                        .chapters_amount
+                                                )
+                                            }
                                         >
-                                            {book.id}
-                                        </button>
-                                    </li>
-                                ) : (
-                                    <li>
-                                        <button
-                                            onClick={() => navChange(book.id)}
-                                        >
-                                            {book.id}
+                                            {chapter}
                                         </button>
                                     </li>
                                 );
                             })}
-                        </ul>
-                    </nav>
-                    <div className="bookstrack__books__main">
-                        <div className="bookstrack__books__main__img">
-                            <img src={booksList[bookNav].img} alt="" />
-                        </div>
-                        <div className="bookstrack__books__main__info">
-                            <h2>{booksList[bookNav].title}</h2>
-                            <p>{booksList[bookNav].desc}</p>
-                        </div>
-                    </div>
-                    <div className="bookstrack__books__main__chapters">
-                        <ul>
-                            <button
-                                type="button"
-                                onClick={() => chaptersNavChange('prev')}
-                            >
-                                <BiLeftArrow />
-                            </button>
-                            {booksList[bookNav].chapters
-                                .slice(chaptersNav[0], chaptersNav[1])
-                                .map((chapter, index) => {
-                                    const chapterNum =
-                                        booksList[bookNav].chapters.indexOf(
-                                            chapter
-                                        );
-                                    return (
-                                        <li key={index}>
-                                            <button
-                                                onClick={() =>
-                                                    chapterChange(
-                                                        booksList[bookNav]
-                                                            .title,
-                                                        chapter,
-                                                        chapterNum,
-                                                        booksList[bookNav]
-                                                            .chapters_amount
-                                                    )
-                                                }
-                                            >
-                                                {chapter}
-                                            </button>
-                                        </li>
-                                    );
-                                })}
-                            <button
-                                type="button"
-                                onClick={() => chaptersNavChange('next')}
-                            >
-                                <BiRightArrow />
-                            </button>
-                        </ul>
-                    </div>
+                        <button
+                            type="button"
+                            onClick={() => chaptersNavChange('next')}
+                        >
+                            <BiRightArrow />
+                        </button>
+                    </ul>
                 </div>
-            </main>
-        </Layout>
+            </div>
+        </main>
     );
 };
 
