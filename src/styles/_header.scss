@@ -10,7 +10,12 @@
     border-bottom: 0.1px solid rgba(255, 255, 255, 0.05);
 
     &__logo {
-        margin: 0 0 2rem 0;
+        height: 10vh;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
 
         h1 {
             font-family: 'Cinzel', serif;
@@ -28,11 +33,19 @@
 
             li {
                 list-style: none;
+
                 a {
                     color: white;
                     font-weight: 700;
+                    font-size: 0.9125rem;
                     text-decoration: none;
                     text-transform: uppercase;
+                    font-family: 'Source Sans Pro', sans-serif;
+                    padding: 0.3rem 0;
+                }
+
+                a:hover {
+                    border-bottom: #243153 solid 1px;
                 }
             }
         }

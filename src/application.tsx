@@ -6,7 +6,7 @@ import { auth, db } from './config/firebase';
 import logging from './config/logging';
 import routes from './config/routes';
 import IProfile from './interfaces/profile';
-import bgimg from './static/images/bg.png';
+import bgimg from './static/images/bg1.png';
 
 const Application: React.FunctionComponent = () => {
     const [loading, setLoading] = useState<boolean>(true);
@@ -50,7 +50,7 @@ const Application: React.FunctionComponent = () => {
 
     useEffect(() => {
         getDatabaseProfile();
-    }, [userProfile])
+    }, [userProfile]);
 
     if (loading) return <h2>Loading...</h2>;
 

@@ -9,6 +9,7 @@ import BooksTrack from '../pages/bookstrack';
 import HomePage from '../pages/home';
 import ProfilePage from '../pages/profile';
 import SortingHatPage from '../pages/sortinghat';
+import FavoritesPage from '../pages/favorites'
 
 const routes: IRoute[] = [
     {
@@ -79,6 +80,13 @@ const routes: IRoute[] = [
         exact: true,
         component: SortingHatPage,
         name: 'Sorting Hat Page',
+        protected: true,
+    },
+    {
+        path: '/favorites',
+        exact: true,
+        component: FavoritesPage,
+        name: 'Favorites Page',
         protected: true,
     },
 ];

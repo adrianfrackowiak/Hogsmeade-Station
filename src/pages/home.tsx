@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { auth, db } from '../config/firebase';
 import IPageProps from '../interfaces/page';
-import bgimg from '../static/images/bg.png';
+import bgimg from '../static/images/bg1.png';
 
 const HomePage: React.FunctionComponent<IPageProps> = (props) => {
     useEffect(() => {

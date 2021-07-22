@@ -19,7 +19,7 @@ const Header: React.FC = () => {
                     <li>
                         <Link to="/sortinghat">Sorting Hat</Link>
                     </li>
-                    <li>Favorites</li>
+                    <li><Link to="/favorites">Favorites</Link></li>
                 </ul>
                 {auth.currentUser ? (
                     <ul className="header__nav__profile">

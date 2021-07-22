@@ -4,7 +4,9 @@ import { auth, db } from '../config/firebase';
 import Layout from '../components/Layout';
 import logging from '../config/logging';
 import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
-import bgimg from '../static/images/bglib.png';
+import bgimg from '../static/images/bg1.png';
+import barimg from '../static/images/bar.png';
+import { WiStars } from 'react-icons/wi';
 
 interface Book {
     id: number;
@@ -45,11 +47,12 @@ const BooksTrack: React.FC = () => {
 
     const [progress, setProgress] = useState<number>(0);
 
-    const progressWidth = {
+    const progressStyle = {
         width: `${progress}%`,
         background: `white`,
         height: `100%`,
         borderRadius: `10rem`,
+        backgroundImage: `url(${barimg})`,
     };
 
     const [bookNav, setBookNav] = useState<number>(0);
@@ -165,11 +168,16 @@ const BooksTrack: React.FC = () => {
                 <h3>{databaseBook.title}</h3>
                 <p>{`Chapter ${databaseBook.chapter_key} / ${databaseBook.chapters_amount}`}</p>
                 <div className="bookstrack__userdata__progressbar">
-                    <div style={progressWidth}></div>
+                    <div style={progressStyle}></div>
                 </div>
                 <p>
                     Choose a book and a chapter you're reading now and track it.
                 </p>
+                <div className="scroll-down">
+                    <WiStars size={32} className="arrows a1" />
+                    <WiStars size={32} className="arrows a2" />
+                    <WiStars size={32} className="arrows a3" />
+                </div>
             </div>
             <div className="bookstrack__books">
                 <nav className="bookstrack__books__nav">

@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { auth, db } from '../config/firebase';
 import IPageProps from '../interfaces/page';
-import bgG from '../static/images/bggryffindor.png';
-import bgR from '../static/images/bgravenclaw.png';
-import bgS from '../static/images/bgslytherin.png';
-import bgH from '../static/images/bghufflepuff.png';
+import bgimg from '../static/images/bg1.png';
+import barimg from '../static/images/bar.png';
+import barGryfimg from '../static/images/bargryffindor.png';
+import barSlytimg from '../static/images/barslytherin.png';
+import barHuffimg from '../static/images/barhufflepuff.png';
+import barRavenimg from '../static/images/barravenclaw.png';
 import IProfile from '../interfaces/profile';
 import axios, { AxiosResponse } from 'axios';
 
@@ -42,24 +44,25 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
     });
 
     const [progress, setProgress] = useState<number>();
+    const [progressColor, setProgressColor] = useState<string>(barimg);
 
     const progressWidth = {
         width: `${progress}%`,
-        background: `white`,
+        backgroundImage: `url(${progressColor})`,
         height: `100%`,
         borderRadius: `10rem`,
     };
 
     const progressWidthFull = {
         width: `100%`,
-        background: `white`,
+        backgroundImage: `url(${progressColor})`,
         height: `100%`,
         borderRadius: `10rem`,
     };
 
     const progressWidthEmpty = {
         width: `0%`,
-        background: `white`,
+        backgroundImage: `url(${progressColor})`,
         height: `100%`,
         borderRadius: `10rem`,
     };
@@ -98,20 +101,20 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
     }, [currentBook]);
 
     useEffect(() => {
-        document.body.style.backgroundImage = `url(${bgG})`;
+        document.body.style.backgroundImage = `url(${bgimg})`;
 
         switch (userProfile.house) {
             case 'gryffindor':
-                document.body.style.backgroundImage = `url(${bgG})`;
+                setProgressColor(barGryfimg);
                 break;
             case 'ravenclaw':
-                document.body.style.backgroundImage = `url(${bgR})`;
+                setProgressColor(barRavenimg);
                 break;
             case 'slytherin':
-                document.body.style.backgroundImage = `url(${bgS})`;
+                setProgressColor(barSlytimg);
                 break;
             case 'hufflepuff':
-                document.body.style.backgroundImage = `url(${bgH})`;
+                setProgressColor(barHuffimg);
                 break;
         }
     }, [userProfile.house]);

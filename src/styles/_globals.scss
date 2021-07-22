@@ -11,8 +11,13 @@ body {
     font-weight: 400;
     letter-spacing: 1.5px;
     background-color: #0e0e16;
-    background-image: url('../static/images/bg.png');
     background-repeat: no-repeat;
+    background-attachment: fixed;
     color: white;
-    transition: background-image 500ms ease-in-out;
+}
+
+button {
+    background: none;
+    outline: none;
+    border: none;
 }
