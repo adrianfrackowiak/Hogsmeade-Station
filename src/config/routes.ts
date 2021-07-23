@@ -9,7 +9,7 @@ import BooksTrack from '../pages/bookstrack';
 import HomePage from '../pages/home';
 import ProfilePage from '../pages/profile';
 import SortingHatPage from '../pages/sortinghat';
-import FavoritesPage from '../pages/favorites'
+import FavoritesPage from '../pages/favorites';
 
 const routes: IRoute[] = [
     {
@@ -48,7 +48,7 @@ const routes: IRoute[] = [
         protected: true,
     },
     {
-        path: '/forget',
+        path: '/forgot',
         exact: true,
         component: ForgotPasswordPage,
         name: 'Forgot Password Page',

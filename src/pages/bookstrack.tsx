@@ -7,6 +7,8 @@ import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
 import bgimg from '../static/images/bg1.png';
 import barimg from '../static/images/bar.png';
 import { WiStars } from 'react-icons/wi';
+import ScrollDown from '../components/ScrollDown';
+import Loading from '../components/Loading';
 
 interface Book {
     id: number;
@@ -49,7 +51,6 @@ const BooksTrack: React.FC = () => {
 
     const progressStyle = {
         width: `${progress}%`,
-        background: `white`,
         height: `100%`,
         borderRadius: `10rem`,
         backgroundImage: `url(${barimg})`,
@@ -109,7 +110,7 @@ const BooksTrack: React.FC = () => {
     }, []);
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     const pushToDataBase = (newCurrentBook: CurrentBook) => {
@@ -173,11 +174,7 @@ const BooksTrack: React.FC = () => {
                 <p>
                     Choose a book and a chapter you're reading now and track it.
                 </p>
-                <div className="scroll-down">
-                    <WiStars size={32} className="arrows a1" />
-                    <WiStars size={32} className="arrows a2" />
-                    <WiStars size={32} className="arrows a3" />
-                </div>
+                <ScrollDown />
             </div>
             <div className="bookstrack__books">
                 <nav className="bookstrack__books__nav">

@@ -21,10 +21,15 @@
         align-items: center;
         justify-content: center;
 
+        background: rgba(20, 20, 20, 0.349);
+        border-radius: 2rem;
+        padding: 2rem;
+
         p {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin: 0 0 2rem 0;
             text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
         }
 
         ul {
@@ -44,7 +49,7 @@
                     outline: none;
                     cursor: pointer;
                     color: white;
-                    font-family: 'Cinzel', serif;
+                    font-family: 'Source Sans Pro', sans-serif;
                     font-size: 1rem;
                 }
 

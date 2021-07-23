@@ -21,3 +21,85 @@ button {
     outline: none;
     border: none;
 }
+
+.scroll-down {
+    position: absolute;
+    bottom: 4rem;
+
+    display: flex;
+    flex-direction: column;
+
+    svg {
+        stroke: #ffffff;
+        fill: transparent;
+        stroke-width: 1px;
+        animation: arrow 2s infinite;
+        -webkit-animation: arrow 2s infinite;
+    }
+
+    .a1 {
+        animation-delay: -1s;
+        -webkit-animation-delay: -1s; /* Safari 和 Chrome */
+    }
+
+    .a2 {
+        animation-delay: -0.5s;
+        -webkit-animation-delay: -0.5s; /* Safari 和 Chrome */
+    }
+
+    .a3 {
+        animation-delay: 0s;
+        -webkit-animation-delay: 0s; /* Safari 和 Chrome */
+    }
+
+    @keyframes arrow {
+        0% {
+            opacity: 0;
+        }
+        40% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    @-webkit-keyframes arrow {
+        0% {
+            opacity: 0;
+        }
+        40% {
+            opacity: 1;
+        }
+        80% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
+@keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadein {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}

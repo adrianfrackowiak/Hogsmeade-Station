@@ -1,0 +1,35 @@
+.loading {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__img {
+        animation: rotation 2s infinite linear;
+        -webkit-animation: rotation 2s infinite linear;
+
+        width: 5rem;
+        height: auto;
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(359deg);
+        }
+    }
+
+    @-webkit-keyframes rotation {
+        from {
+            -webkit-transform: rotate(0deg);
+        }
+        to {
+            -webkit-transform: rotate(359deg);
+        }
+    }
+}

@@ -10,6 +10,7 @@ import potionSvg from '../static/images/potion.svg';
 import axios, { AxiosResponse } from 'axios';
 import { FaTimes } from 'react-icons/fa';
 import logging from '../config/logging';
+import Loading from '../components/Loading';
 
 interface Wizard {
     id: number;
@@ -136,7 +137,7 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
     };
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     return (

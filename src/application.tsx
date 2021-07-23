@@ -6,6 +6,7 @@ import { auth, db } from './config/firebase';
 import logging from './config/logging';
 import routes from './config/routes';
 import IProfile from './interfaces/profile';
+import Loading from './components/Loading';
 import bgimg from './static/images/bg1.png';
 
 const Application: React.FunctionComponent = () => {
@@ -26,7 +27,6 @@ const Application: React.FunctionComponent = () => {
                     } else {
                         console.log('No data available');
                     }
-
                     setLoading(false);
                 })
                 .catch((error: any) => {
@@ -44,6 +44,7 @@ const Application: React.FunctionComponent = () => {
                 getDatabaseProfile();
             } else {
                 logging.info('No user detected');
+                setLoading(false);
             }
         });
     }, []);
@@ -52,7 +53,7 @@ const Application: React.FunctionComponent = () => {
         getDatabaseProfile();
     }, [userProfile]);
 
-    if (loading) return <h2>Loading...</h2>;
+    if (loading) return <Loading />;
 
     return (
         <Layout>

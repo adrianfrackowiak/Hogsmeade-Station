@@ -32,38 +32,43 @@ const LoginPage: React.FunctionComponent<IPageProps> = (props) => {
     };
 
     return (
-        <form>
-            <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Enter your email address"
-                onChange={(event) => setEmail(event.target.value)}
-                value={email}
-            />
-            <input
-                autoComplete="new-password"
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Enter your password"
-                onChange={(event) => setPassword(event.target.value)}
-                value={password}
-            />
-            <button
-                disabled={authenticating}
-                onClick={() => signInWithEmailAndPassword()}
-            >
-                Login
-            </button>
-            <p>
-                Don't have an account? <Link to="/register">Register.</Link>
-            </p>
-            <p>
-                <Link to="/forgot">Forget your password?</Link>
-            </p>
-            <ErrorText error={error} />
-        </form>
+        <main className="login">
+            <h2>Login to Your Account</h2>
+            <form className="login__form">
+                <label htmlFor="email">Email Adress</label>
+                <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    onChange={(event) => setEmail(event.target.value)}
+                    value={email}
+                />
+                <label htmlFor="password">Password</label>
+                <input
+                    autoComplete="new-password"
+                    type="password"
+                    name="password"
+                    id="password"
+                    onChange={(event) => setPassword(event.target.value)}
+                    value={password}
+                />
+                <p>
+                    <Link to="/forgot">Forgot your password?</Link>
+                </p>
+                <button
+                    disabled={authenticating}
+                    onClick={() => signInWithEmailAndPassword()}
+                >
+                    Login
+                </button>
+                <p>
+                    Don't have an account?
+                    <br /> <Link to="/register">REGISTER</Link>
+                </p>
+
+                <ErrorText error={error} />
+            </form>
+        </main>
     );
 };
 

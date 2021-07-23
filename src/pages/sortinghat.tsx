@@ -6,6 +6,7 @@ import { auth, db } from '../config/firebase';
 import logging from '../config/logging';
 import IProfile from '../interfaces/profile';
 import bgimg from '../static/images/bgsortinghat.png';
+import Loading from '../components/Loading';
 
 interface Question {
     id: number;
@@ -112,7 +113,7 @@ const SortingHatPage: React.FC<IProfile> = (userProfile) => {
     }
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     return (

@@ -11,6 +11,8 @@ import barHuffimg from '../static/images/barhufflepuff.png';
 import barRavenimg from '../static/images/barravenclaw.png';
 import IProfile from '../interfaces/profile';
 import axios, { AxiosResponse } from 'axios';
+import ScrollDown from '../components/ScrollDown';
+import Loading from '../components/Loading';
 
 interface Book {
     id: number;
@@ -120,7 +122,7 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
     }, [userProfile.house]);
 
     if (loading) {
-        return <h2>Loading...</h2>;
+        return <Loading />;
     }
 
     return (
@@ -130,6 +132,7 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                     {userProfile.firstName} {userProfile.lastName}
                 </p>
                 <h2>{userProfile.house}</h2>
+                <ScrollDown />
             </div>
             <div className="profile__bookstrack">
                 {booksList.map((book, key) => {

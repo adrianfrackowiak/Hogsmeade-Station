@@ -1,0 +1,53 @@
+.home {
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    animation: fadein 2s;
+    -webkit-animation: fadein 2s;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+    h1 {
+        font-size: 3.25rem;
+        width: 40%;
+        margin: 4rem 0 2rem 0;
+    }
+
+    p {
+        font-family: 'Source Sans Pro', sans-serif;
+        width: 35%;
+    }
+
+    &__nav {
+        width: 100%;
+        margin: 8rem 0 0 0;
+
+        display: flex;
+        justify-content: center;
+
+        &__post {
+            width: 22rem;
+            height: 12rem;
+            margin: 0 3rem;
+            background: white;
+            background-size: cover;
+            position: relative;
+
+            p {
+                font-family: 'Cinzel', serif;
+                font-size: 2rem;
+                text-align: left;
+                position: absolute;
+                top: 11rem;
+                left: 2rem;
+                width: 100%;
+            }
+        }
+    }
+}
