@@ -14,6 +14,10 @@ import axios, { AxiosResponse } from 'axios';
 import ScrollDown from '../components/ScrollDown';
 import Loading from '../components/Loading';
 
+import hatSvg from '../static/images/hat.svg';
+import potionSvg from '../static/images/potion.svg';
+import broomSvg from '../static/images/broom.svg';
+
 interface Book {
     id: number;
     title: string;
@@ -31,6 +35,12 @@ interface CurrentBook {
     chapters_amount?: number;
 }
 
+interface CurrentFavorites {
+    wizard?: string;
+    place?: string;
+    spell?: string;
+}
+
 const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
     const [loading, setLoading]: [boolean, (loading: boolean) => void] =
         useState<boolean>(true);
@@ -45,6 +55,12 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
         chapters_amount: 0,
     });
 
+    const [currentFavorites, setCurrentFavorites] = useState<CurrentFavorites>({
+        wizard: '',
+        place: '',
+        spell: '',
+    });
+
     const [progress, setProgress] = useState<number>();
     const [progressColor, setProgressColor] = useState<string>(barimg);
 
@@ -52,21 +68,33 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
         width: `${progress}%`,
         backgroundImage: `url(${progressColor})`,
         height: `100%`,
-        borderRadius: `10rem`,
+        backgroundPosition: `center`,
     };
 
     const progressWidthFull = {
         width: `100%`,
         backgroundImage: `url(${progressColor})`,
         height: `100%`,
-        borderRadius: `10rem`,
+        backgroundPosition: `center`,
     };
 
     const progressWidthEmpty = {
         width: `0%`,
         backgroundImage: `url(${progressColor})`,
         height: `100%`,
-        borderRadius: `10rem`,
+        backgroundPosition: `center`,
+    };
+
+    const activeFavoriteStyle = {
+        width: `18rem`,
+        height: `22rem`,
+        opacity: `1`,
+    };
+
+    const favoriteStyle = {
+        width: `calc(0.9 * 18rem)`,
+        height: `calc(0.9 * 22rem)`,
+        opacity: `0.5`,
     };
 
     useEffect(() => {
@@ -78,13 +106,18 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                 setLoading(false);
             });
 
-        console.log(userProfile.bookstrack?.chapter);
         setCurrentBook({
             id: userProfile.bookstrack?.id,
             title: userProfile.bookstrack?.title,
             chapter: userProfile.bookstrack?.chapter,
             chapter_key: userProfile.bookstrack?.chapter_key,
             chapters_amount: userProfile.bookstrack?.chapters_amount,
+        });
+
+        setCurrentFavorites({
+            wizard: userProfile.favorites?.wizard,
+            spell: userProfile.favorites?.spell,
+            place: userProfile.favorites?.place,
         });
     }, []);
 
@@ -131,7 +164,13 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                 <p>
                     {userProfile.firstName} {userProfile.lastName}
                 </p>
-                <h2>{userProfile.house}</h2>
+                {userProfile.house ? (
+                    <h2>{userProfile.house}</h2>
+                ) : (
+                    <Link to="/sortinghat">
+                        <h2>Discover Your House</h2>
+                    </Link>
+                )}
                 <ScrollDown />
             </div>
             <div className="profile__bookstrack">
@@ -167,7 +206,44 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                     }
                 })}
             </div>
-            <div className="profile__favorites"></div>
+            <div className="profile__favorites">
+                <div
+                    className="profile__favorites__wizard"
+                    style={favoriteStyle}
+                >
+                    <p>Wizards</p>
+                    <img src={hatSvg} alt="Wizard" />
+                    {userProfile.favorites?.wizard === '' ? (
+                        <p>Choose your favorite wizard</p>
+                    ) : (
+                        <p>{userProfile.favorites?.wizard}</p>
+                    )}
+                </div>
+                <div
+                    className="profile__favorites__wizard"
+                    style={activeFavoriteStyle}
+                >
+                    <p>Spells & Potions</p>
+                    <img src={potionSvg} alt="Wizard" />
+                    {userProfile.favorites?.spell === '' ? (
+                        <p>Choose your favorite spell or potion</p>
+                    ) : (
+                        <p>{userProfile.favorites?.spell}</p>
+                    )}
+                </div>
+                <div
+                    className="profile__favorites__wizard"
+                    style={favoriteStyle}
+                >
+                    <p>Places & Transport</p>
+                    <img src={broomSvg} alt="Wizard" />
+                    {userProfile.favorites?.place === '' ? (
+                        <p>Choose your favorite place or trasport</p>
+                    ) : (
+                        <p>{userProfile.favorites?.place}</p>
+                    )}
+                </div>
+            </div>
         </main>
     );
 };

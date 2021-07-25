@@ -156,7 +156,7 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
                         onClick={() => setWizChoice(true)}
                         className="favorites__slider__wizard"
                     >
-                        <p>Characters</p>
+                        <p>Wizards</p>
                         <img src={hatSvg} alt="Wizard" />
                         {favWiz === '' ? (
                             <p>Choose your favorite wizard</p>

@@ -1,12 +1,89 @@
-.container {
-    margin: 0 auto;
-    max-width: 80vw;
+@include breakpoint(tablet_1024) {
+    .container {
+        margin: 0 auto;
+        max-width: 95vw;
 
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
 
-    .content {
-        flex-grow: 1;
+        .content {
+            flex-grow: 1;
+        }
+    }
+}
+
+@include breakpoint(tablet_1112) {
+    .container {
+        margin: 0 auto;
+        max-width: 90vw;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .content {
+            flex-grow: 1;
+        }
+    }
+}
+
+@include breakpoint(laptop_1366) {
+    .container {
+        margin: 0 auto;
+        max-width: 90vw;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .content {
+            flex-grow: 1;
+        }
+    }
+}
+
+@include breakpoint(laptop_1440) {
+    .container {
+        margin: 0 auto;
+        max-width: 80vw;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .content {
+            flex-grow: 1;
+        }
+    }
+}
+
+@include breakpoint(desktop_1680) {
+    .container {
+        margin: 0 auto;
+        max-width: 80vw;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .content {
+            flex-grow: 1;
+        }
+    }
+}
+
+@include breakpoint(desktop_1920) {
+    .container {
+        margin: 0 auto;
+        max-width: 80vw;
+
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .content {
+            flex-grow: 1;
+        }
     }
 }

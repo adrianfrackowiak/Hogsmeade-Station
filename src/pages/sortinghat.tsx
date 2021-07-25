@@ -33,6 +33,8 @@ const SortingHatPage: React.FC<IProfile> = (userProfile) => {
     const [loading, setLoading]: [boolean, (loading: boolean) => void] =
         useState<boolean>(true);
 
+    const [sorting, setSorting] = useState<boolean>(false);
+
     const [questions, setQuestions] = useState<Question[]>([]);
     const [questionNum, setQuestionNum] = useState<number>(0);
     const [housesPoints, setHousesPoints] = useState<Houses>({
@@ -118,40 +120,59 @@ const SortingHatPage: React.FC<IProfile> = (userProfile) => {
 
     return (
         <main className="sortinghat">
-            <h2>Sorting Hat</h2>
-            {questionNum !== 14 ? (
-                questions.map((question, key) => {
-                    if (key === questionNum) {
-                        return (
-                            <div className="sortinghat__questionbox" key={key}>
-                                <p>{question.question}</p>
-                                <ul>
-                                    {question.answers.map((answer) => {
-                                        return (
-                                            <li>
-                                                <button
-                                                    onClick={() => {
-                                                        updateHousesPoints(
-                                                            answer.gryffindor,
-                                                            answer.ravenclaw,
-                                                            answer.hufflepuff,
-                                                            answer.slytherin
-                                                        );
-                                                        nextQuestion();
-                                                    }}
-                                                >
-                                                    {answer.name}
-                                                </button>
-                                            </li>
-                                        );
-                                    })}
-                                </ul>
-                            </div>
-                        );
-                    }
-                })
+            {sorting ? (
+                questionNum !== 14 ? (
+                    questions.map((question, key) => {
+                        if (key === questionNum) {
+                            return (
+                                <div
+                                    className="sortinghat__questionbox"
+                                    key={key}
+                                >
+                                    <h2>{question.question}</h2>
+                                    <ul>
+                                        {question.answers.map((answer) => {
+                                            return (
+                                                <li>
+                                                    <button
+                                                        className="answer"
+                                                        onClick={() => {
+                                                            updateHousesPoints(
+                                                                answer.gryffindor,
+                                                                answer.ravenclaw,
+                                                                answer.hufflepuff,
+                                                                answer.slytherin
+                                                            );
+                                                            nextQuestion();
+                                                        }}
+                                                    >
+                                                        {answer.name}
+                                                    </button>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>
+                            );
+                        }
+                    })
+                ) : (
+                    <p>{house}</p>
+                )
             ) : (
-                <p>{house}</p>
+                <div className="sortinghat__start">
+                    <h2>Sorting Hat</h2>
+                    <p>
+                        Adorn the Sorting Hat to be placed into your rightful
+                        Hogwarts house. The Sorting Hat's decision is final.
+                    </p>
+                    <button
+                        className="start-btn"
+                        onClick={() => setSorting(true)}
+                    >
+                        Start The Sorting Ceremony
+                    </button>
+                </div>
             )}
         </main>
     );

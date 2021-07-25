@@ -1,52 +1,390 @@
-.home {
-    width: 100%;
-    height: 75vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    animation: fadein 2s;
-    -webkit-animation: fadein 2s;
-
-    a {
-        text-decoration: none;
-        color: white;
-    }
-
-    h1 {
-        font-size: 3.25rem;
-        width: 40%;
-        margin: 4rem 0 2rem 0;
-    }
-
-    p {
-        font-family: 'Source Sans Pro', sans-serif;
-        width: 35%;
-    }
-
-    &__nav {
+@include breakpoint(tablet_1024) {
+    .home {
         width: 100%;
-        margin: 8rem 0 0 0;
-
+        height: 100%;
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
 
-        &__post {
-            width: 22rem;
-            height: 12rem;
-            margin: 0 3rem;
-            background: white;
-            background-size: cover;
-            position: relative;
+        a {
+            text-decoration: none;
+            color: white;
+        }
 
-            p {
-                font-family: 'Cinzel', serif;
-                font-size: 2rem;
-                text-align: left;
-                position: absolute;
-                top: 11rem;
-                left: 2rem;
-                width: 100%;
+        h1 {
+            font-size: 2.5rem;
+            width: 100%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 100%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 10rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 17.6rem;
+                height: 9.6rem;
+                margin: 0 1.5rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.5rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 8.6rem;
+                    left: 1rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint(tablet_1112) {
+    .home {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            width: 100%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 100%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 10rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 18.7rem;
+                height: 10.2rem;
+                margin: 0 1rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.5rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 9rem;
+                    left: 2rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint(laptop_1366) {
+    .home {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            width: 80%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 80%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 10rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 19.8rem;
+                height: 10.8rem;
+                margin: 0 2rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.5rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 9.8rem;
+                    left: 2rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint(laptop_1440) {
+    .home {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            width: 80%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 80%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 10rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 19.8rem;
+                height: 10.8rem;
+                margin: 0 2rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.5rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 9.8rem;
+                    left: 2rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint(desktop_1680) {
+    .home {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            width: 70%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 70%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 8rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 22rem;
+                height: 12rem;
+                margin: 0 3rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 2rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 11rem;
+                    left: 2rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint(desktop_1680) {
+    .home {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            width: 70%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 70%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 8rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 22rem;
+                height: 12rem;
+                margin: 0 3rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 2rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 11rem;
+                    left: 2rem;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint(desktop_1920) {
+    .home {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        animation: fadein 2s;
+        -webkit-animation: fadein 2s;
+
+        a {
+            text-decoration: none;
+            color: white;
+        }
+
+        h1 {
+            font-size: 3.25rem;
+            width: 40%;
+            margin: 4rem 0 2rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            width: 35%;
+        }
+
+        &__nav {
+            width: 100%;
+            margin: 8rem 0 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            &__post {
+                width: 22rem;
+                height: 12rem;
+                margin: 0 3rem;
+                background: white;
+                background-size: cover;
+                position: relative;
+
+                p {
+                    font-family: 'Cinzel', serif;
+                    font-size: 2rem;
+                    text-align: left;
+                    position: absolute;
+                    top: 11rem;
+                    left: 2rem;
+                    width: 100%;
+                }
             }
         }
     }

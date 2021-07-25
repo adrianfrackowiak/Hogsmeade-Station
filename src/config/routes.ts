@@ -4,7 +4,6 @@ import ForgotPasswordPage from '../pages/auth/forgot';
 import LoginPage from '../pages/auth/login';
 import LogoutPage from '../pages/auth/logout';
 import RegisterPage from '../pages/auth/register';
-import ResetPasswordPage from '../pages/auth/reset';
 import BooksTrack from '../pages/bookstrack';
 import HomePage from '../pages/home';
 import ProfilePage from '../pages/profile';
@@ -52,13 +51,6 @@ const routes: IRoute[] = [
         exact: true,
         component: ForgotPasswordPage,
         name: 'Forgot Password Page',
-        protected: false,
-    },
-    {
-        path: '/reset',
-        exact: true,
-        component: ResetPasswordPage,
-        name: 'Reset Password Page',
         protected: false,
     },
     {

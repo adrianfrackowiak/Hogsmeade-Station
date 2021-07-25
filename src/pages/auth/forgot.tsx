@@ -35,7 +35,7 @@ const ForgotPasswordPage: React.FunctionComponent<IPageProps> = (props) => {
                 <p>A link has been sent to your email with instructions.</p>
             ) : (
                 <>
-                    <h2>Please enter your email.</h2>
+                    <h2>Please enter your email</h2>
                     <form className="forgot__form">
                         <input
                             type="email"

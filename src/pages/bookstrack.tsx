@@ -52,7 +52,6 @@ const BooksTrack: React.FC = () => {
     const progressStyle = {
         width: `${progress}%`,
         height: `100%`,
-        borderRadius: `10rem`,
         backgroundImage: `url(${barimg})`,
     };
 
