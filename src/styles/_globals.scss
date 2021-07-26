@@ -22,6 +22,36 @@ button {
     border: none;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
+h1 {
+    font-size: 1.5rem;
+    width: 100%;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h3 {
+    font-size: 1rem;
+}
+
+p {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 0.8rem;
+    width: 100%;
+}
+
+ul {
+    li {
+        list-style: none;
+    }
+}
+
 .scroll-down {
     position: absolute;
     bottom: 4rem;

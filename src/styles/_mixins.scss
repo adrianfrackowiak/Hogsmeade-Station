@@ -1,11 +1,9 @@
 $breakpoint: (
-    'desktop_1920': '1920px',
-    'desktop_1680': '1680px',
-    'laptop_1440': '1440px',
-    'laptop_1366': '1366px',
-    'tablet_1112': '1112px',
-    'tablet_1024': '1024px',
-    'phone_812': '812px',
+    'sm': '640px',
+    'md': '768px',
+    'lg': '1024px',
+    'xl': '1280px',
+    '2xl': '1536px',
 );
 
 @mixin breakpoint($size) {

@@ -2,23 +2,15 @@
     height: 75vh;
     width: 100%;
 
-    padding: 5rem 0 0 0;
-
-    h2 {
-        text-align: center;
-        font-size: 2.5rem;
-    }
-
-    p {
-        text-align: center;
-        font-family: 'Source Sans Pro', sans-serif;
-    }
+    padding: 2.5rem 0 0 0;
 
     &__slider {
-        height: 100%;
+        height: auto;
+        width: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+        margin: 2rem 0;
 
         &__wizard,
         &__spells,
@@ -28,14 +20,14 @@
             background: rgb(29, 23, 44);
             border-radius: 1rem;
             cursor: pointer;
-            margin: 0 2.5rem;
+            margin: 0 0 4rem 0;
 
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
 
-            opacity: 0.5;
+            opacity: 1;
             transition: opacity ease-in-out 300ms;
 
             p {
@@ -44,12 +36,6 @@
                 width: 70%;
                 text-align: center;
             }
-        }
-
-        &__wizard:hover,
-        &__spells:hover,
-        &__places:hover {
-            opacity: 1;
         }
     }
 
@@ -91,6 +77,107 @@
                     font-size: 1.75rem;
                     font-family: 'Cinzel', serif;
                     cursor: pointer;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint('2xl') {
+    .favorites {
+        height: 75vh;
+        width: 100%;
+
+        padding: 5rem 0 0 0;
+
+        h2 {
+            text-align: center;
+            font-size: 2.5rem;
+        }
+
+        p {
+            text-align: center;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        &__slider {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &__wizard,
+            &__spells,
+            &__places {
+                width: 18rem;
+                height: 22rem;
+                background: rgb(29, 23, 44);
+                border-radius: 1rem;
+                cursor: pointer;
+                margin: 0 2.5rem;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+
+                opacity: 0.5;
+                transition: opacity ease-in-out 300ms;
+
+                p {
+                    color: rgb(168, 139, 44);
+                    margin: 2rem 0;
+                    width: 70%;
+                    text-align: center;
+                }
+            }
+
+            &__wizard:hover,
+            &__spells:hover,
+            &__places:hover {
+                opacity: 1;
+            }
+        }
+
+        &__choice {
+            width: 100%;
+            height: 100vh;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            background: rgb(29, 23, 44);
+            overflow-y: scroll;
+
+            &__close {
+                position: absolute;
+                top: 2rem;
+                right: 2rem;
+
+                color: white;
+                cursor: pointer;
+            }
+
+            ul {
+                text-align: center;
+                margin: 4rem 0;
+
+                li {
+                    list-style: none;
+
+                    margin: 2rem 0;
+
+                    button {
+                        color: white;
+                        font-size: 1.75rem;
+                        font-family: 'Cinzel', serif;
+                        cursor: pointer;
+                    }
                 }
             }
         }

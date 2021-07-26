@@ -58,6 +58,23 @@ const BooksTrack: React.FC = () => {
     const [bookNav, setBookNav] = useState<number>(0);
 
     const [chaptersNav, setChaptersNav] = useState<number[]>([0, 3]);
+    const [chaptersMobileNav, setChaptersMobileNav] = useState<number[]>([
+        0, 1,
+    ]);
+
+    const [width, setWidth] = useState<number>(window.innerWidth);
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        };
+    }, []);
+
+    let isMobile: boolean = width <= 768;
 
     const getDatabaseBook = () => {
         const database = db.ref();
@@ -146,16 +163,37 @@ const BooksTrack: React.FC = () => {
     const navChange = (id: number) => {
         setBookNav(id - 1);
         setChaptersNav([0, 3]);
+        setChaptersMobileNav([0, 1]);
     };
 
     const chaptersNavChange = (btn: string) => {
         if (btn === 'prev') {
-            if (chaptersNav[0] !== 0) {
-                setChaptersNav([chaptersNav[0] - 1, chaptersNav[1] - 1]);
+            if (isMobile) {
+                if (chaptersMobileNav[0] !== 0) {
+                    setChaptersMobileNav([
+                        chaptersMobileNav[0] - 1,
+                        chaptersMobileNav[1] - 1,
+                    ]);
+                }
+            } else {
+                if (chaptersNav[0] !== 0) {
+                    setChaptersNav([chaptersNav[0] - 1, chaptersNav[1] - 1]);
+                }
             }
         } else if (btn === 'next') {
-            if (chaptersNav[1] !== booksList[bookNav].chapters_amount) {
-                setChaptersNav([chaptersNav[0] + 1, chaptersNav[1] + 1]);
+            if (isMobile) {
+                if (
+                    chaptersMobileNav[1] !== booksList[bookNav].chapters_amount
+                ) {
+                    setChaptersMobileNav([
+                        chaptersMobileNav[0] + 1,
+                        chaptersMobileNav[1] + 1,
+                    ]);
+                }
+            } else {
+                if (chaptersNav[1] !== booksList[bookNav].chapters_amount) {
+                    setChaptersNav([chaptersNav[0] + 1, chaptersNav[1] + 1]);
+                }
             }
         }
     };
@@ -207,7 +245,7 @@ const BooksTrack: React.FC = () => {
                         <p>{booksList[bookNav].desc}</p>
                     </div>
                 </div>
-                <div className="bookstrack__books__main__chapters">
+                <div className="bookstrack__books__chapters">
                     <ul>
                         <button
                             type="button"
@@ -215,32 +253,64 @@ const BooksTrack: React.FC = () => {
                         >
                             <BiLeftArrow />
                         </button>
-                        {booksList[bookNav].chapters
-                            .slice(chaptersNav[0], chaptersNav[1])
-                            .map((chapter, index) => {
-                                const chapterNum =
-                                    booksList[bookNav].chapters.indexOf(
-                                        chapter
-                                    );
-                                return (
-                                    <li key={index}>
-                                        <button
-                                            onClick={() =>
-                                                chapterChange(
-                                                    booksList[bookNav].id,
-                                                    booksList[bookNav].title,
-                                                    chapter,
-                                                    chapterNum,
-                                                    booksList[bookNav]
-                                                        .chapters_amount
-                                                )
-                                            }
-                                        >
-                                            {chapter}
-                                        </button>
-                                    </li>
-                                );
-                            })}
+                        {isMobile
+                            ? booksList[bookNav].chapters
+                                  .slice(
+                                      chaptersMobileNav[0],
+                                      chaptersMobileNav[1]
+                                  )
+                                  .map((chapter, index) => {
+                                      const chapterNum =
+                                          booksList[bookNav].chapters.indexOf(
+                                              chapter
+                                          );
+                                      return (
+                                          <li key={index}>
+                                              <button
+                                                  onClick={() =>
+                                                      chapterChange(
+                                                          booksList[bookNav].id,
+                                                          booksList[bookNav]
+                                                              .title,
+                                                          chapter,
+                                                          chapterNum,
+                                                          booksList[bookNav]
+                                                              .chapters_amount
+                                                      )
+                                                  }
+                                              >
+                                                  {chapter}
+                                              </button>
+                                          </li>
+                                      );
+                                  })
+                            : booksList[bookNav].chapters
+                                  .slice(chaptersNav[0], chaptersNav[1])
+                                  .map((chapter, index) => {
+                                      const chapterNum =
+                                          booksList[bookNav].chapters.indexOf(
+                                              chapter
+                                          );
+                                      return (
+                                          <li key={index}>
+                                              <button
+                                                  onClick={() =>
+                                                      chapterChange(
+                                                          booksList[bookNav].id,
+                                                          booksList[bookNav]
+                                                              .title,
+                                                          chapter,
+                                                          chapterNum,
+                                                          booksList[bookNav]
+                                                              .chapters_amount
+                                                      )
+                                                  }
+                                              >
+                                                  {chapter}
+                                              </button>
+                                          </li>
+                                      );
+                                  })}
                         <button
                             type="button"
                             onClick={() => chaptersNavChange('next')}

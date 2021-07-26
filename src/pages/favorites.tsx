@@ -12,6 +12,13 @@ import { FaTimes } from 'react-icons/fa';
 import logging from '../config/logging';
 import Loading from '../components/Loading';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import SwiperCore, { Pagination, Navigation } from 'swiper/core';
+SwiperCore.use([Pagination, Navigation]);
+
 interface Wizard {
     id: number;
     name: string;
@@ -51,6 +58,22 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
     const [wizards, setWizards] = useState<Wizard[]>([]);
     const [places, setPlaces] = useState<Place[]>([]);
     const [spells, setSpells] = useState<Spell[]>([]);
+
+    const [swiperRef, setSwiperRef] = useState<any>(null);
+
+    const [width, setWidth] = useState<number>(window.innerWidth);
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        };
+    }, []);
+
+    let isMobile: boolean = width <= 768;
 
     const getDatabaseFavorites = () => {
         const database = db.ref();
@@ -151,44 +174,98 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
                     Choose your favorites from the three sections. It'll
                     automatically save to your profile.
                 </p>
-                <div className="favorites__slider">
-                    <div
-                        onClick={() => setWizChoice(true)}
-                        className="favorites__slider__wizard"
-                    >
-                        <p>Wizards</p>
-                        <img src={hatSvg} alt="Wizard" />
-                        {favWiz === '' ? (
-                            <p>Choose your favorite wizard</p>
-                        ) : (
-                            <p>{favWiz}</p>
-                        )}
+                {isMobile ? (
+                    <>
+                        <Swiper
+                            onSwiper={setSwiperRef}
+                            slidesPerView={1}
+                            centeredSlides={true}
+                            spaceBetween={10}
+                            pagination={{
+                                type: 'fraction',
+                            }}
+                            className="favorites__slider"
+                        >
+                            <SwiperSlide
+                                onClick={() => setWizChoice(true)}
+                                className="favorites__slider__wizard"
+                            >
+                                <p>Wizards</p>
+                                <img src={hatSvg} alt="Wizard" />
+                                {favWiz === '' ? (
+                                    <p>Choose your favorite wizard</p>
+                                ) : (
+                                    <p>{favWiz}</p>
+                                )}
+                            </SwiperSlide>
+                            <SwiperSlide
+                                onClick={() => setSpellChoice(true)}
+                                className="favorites__slider__spells"
+                            >
+                                <p>Spells & Potions</p>
+                                <img src={potionSvg} alt="Wizard" />
+                                {favSpell === '' ? (
+                                    <p>Choose your favorite spell or potion</p>
+                                ) : (
+                                    <p>{favSpell}</p>
+                                )}
+                            </SwiperSlide>
+                            <SwiperSlide
+                                onClick={() => setPlaceChoice(true)}
+                                className="favorites__slider__places"
+                            >
+                                <p>Places & Transport</p>
+                                <img src={broomSvg} alt="Wizard" />
+                                {favPlace === '' ? (
+                                    <p>
+                                        Choose your favorite place or trasport
+                                    </p>
+                                ) : (
+                                    <p>{favPlace}</p>
+                                )}
+                            </SwiperSlide>
+                        </Swiper>
+                    </>
+                ) : (
+                    <div className="favorites__slider">
+                        <div
+                            onClick={() => setWizChoice(true)}
+                            className="favorites__slider__wizard"
+                        >
+                            <p>Wizards</p>
+                            <img src={hatSvg} alt="Wizard" />
+                            {favWiz === '' ? (
+                                <p>Choose your favorite wizard</p>
+                            ) : (
+                                <p>{favWiz}</p>
+                            )}
+                        </div>
+                        <div
+                            onClick={() => setSpellChoice(true)}
+                            className="favorites__slider__spells"
+                        >
+                            <p>Spells & Potions</p>
+                            <img src={potionSvg} alt="Wizard" />
+                            {favSpell === '' ? (
+                                <p>Choose your favorite spell or potion</p>
+                            ) : (
+                                <p>{favSpell}</p>
+                            )}
+                        </div>
+                        <div
+                            onClick={() => setPlaceChoice(true)}
+                            className="favorites__slider__places"
+                        >
+                            <p>Places & Transport</p>
+                            <img src={broomSvg} alt="Wizard" />
+                            {favPlace === '' ? (
+                                <p>Choose your favorite place or trasport</p>
+                            ) : (
+                                <p>{favPlace}</p>
+                            )}
+                        </div>
                     </div>
-                    <div
-                        onClick={() => setSpellChoice(true)}
-                        className="favorites__slider__spells"
-                    >
-                        <p>Spells & Potions</p>
-                        <img src={potionSvg} alt="Wizard" />
-                        {favSpell === '' ? (
-                            <p>Choose your favorite spell or potion</p>
-                        ) : (
-                            <p>{favSpell}</p>
-                        )}
-                    </div>
-                    <div
-                        onClick={() => setPlaceChoice(true)}
-                        className="favorites__slider__places"
-                    >
-                        <p>Places & Transport</p>
-                        <img src={broomSvg} alt="Wizard" />
-                        {favPlace === '' ? (
-                            <p>Choose your favorite place or trasport</p>
-                        ) : (
-                            <p>{favPlace}</p>
-                        )}
-                    </div>
-                </div>
+                )}
             </main>
             {wizChoice ? (
                 <div className="favorites__choice">

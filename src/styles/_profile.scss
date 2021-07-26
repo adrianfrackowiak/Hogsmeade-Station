@@ -2,21 +2,13 @@
     width: 100%;
 
     &__info {
-        height: 85vh;
+        height: 95vh;
 
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-
-        h2 {
-            font-size: 5rem;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
+        text-align: center;
     }
 
     &__bookstrack {
@@ -61,6 +53,76 @@
                 width: 70%;
                 text-align: center;
                 font-family: 'Source Sans Pro', sans-serif;
+            }
+        }
+    }
+}
+
+@include breakpoint('2xl') {
+    .profile {
+        width: 100%;
+
+        &__info {
+            height: 85vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            h2 {
+                font-size: 5rem;
+            }
+
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+
+        &__bookstrack {
+            height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            &__progressbar {
+                width: 50rem;
+                height: 3rem;
+                border: 1px solid white;
+                margin: 1rem 0 2rem 0;
+            }
+        }
+
+        &__favorites {
+            height: 90vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &__wizard,
+            &__spells,
+            &__places {
+                background: rgb(29, 23, 44);
+                border-radius: 1rem;
+                cursor: pointer;
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                transition: opacity ease-in-out 300ms;
+
+                p {
+                    color: rgb(168, 139, 44);
+                    margin: 2rem 0;
+                    width: 70%;
+                    text-align: center;
+                    font-family: 'Source Sans Pro', sans-serif;
+                }
             }
         }
     }
