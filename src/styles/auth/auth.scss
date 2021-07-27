@@ -10,7 +10,7 @@
     letter-spacing: 1px;
 
     h2 {
-        width: 15%;
+        width: 100%;
         text-align: center;
 
         margin: 3rem 0 3rem 0;
@@ -76,4 +76,86 @@
 
 .error {
     color: rgb(180, 22, 22);
+}
+
+@include breakpoint('2xl') {
+    .login,
+    .register,
+    .forgot {
+        width: 100%;
+        height: auto;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        letter-spacing: 1px;
+
+        h2 {
+            width: 15%;
+            text-align: center;
+
+            margin: 3rem 0 3rem 0;
+        }
+
+        p {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 0.875rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        &__form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            input {
+                height: 3rem;
+                width: 18rem;
+
+                border: none;
+                border-radius: 0.25rem;
+
+                outline: none;
+                padding: 0 0 0 1rem;
+                margin: 0 0 2rem 0;
+
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 0.9125rem;
+            }
+
+            label {
+                font-family: 'Source Sans Pro', sans-serif;
+                font-size: 0.9125rem;
+                text-transform: uppercase;
+                margin: 0 0 1rem 0;
+                width: 100%;
+            }
+
+            a {
+                text-decoration: none;
+                color: rgb(131, 79, 190);
+            }
+
+            button {
+                width: 14rem;
+                height: 3rem;
+                background: rgb(131, 79, 190);
+
+                border-radius: 2rem;
+                margin: 1rem 0 1rem 0;
+
+                color: white;
+                text-transform: uppercase;
+                font-weight: 700;
+                font-size: 1rem;
+                letter-spacing: 1px;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .error {
+        color: rgb(180, 22, 22);
+    }
 }

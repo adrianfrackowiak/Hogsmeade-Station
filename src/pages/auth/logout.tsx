@@ -10,7 +10,7 @@ const LogoutPage: React.FunctionComponent<IPageProps> = (props) => {
 
     const Logout = () => {
         auth.signOut()
-            .then(() => history.push('/login'))
+            .then(() => history.push('/'))
             .catch((error) => logging.error(error));
     };
 

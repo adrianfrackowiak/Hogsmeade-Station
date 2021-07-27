@@ -188,41 +188,62 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
                         >
                             <SwiperSlide
                                 onClick={() => setWizChoice(true)}
-                                className="favorites__slider__wizard"
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
                             >
-                                <p>Wizards</p>
-                                <img src={hatSvg} alt="Wizard" />
-                                {favWiz === '' ? (
-                                    <p>Choose your favorite wizard</p>
-                                ) : (
-                                    <p>{favWiz}</p>
-                                )}
+                                <div className="favorites__slider__wizard">
+                                    <p>Wizards</p>
+                                    <img src={hatSvg} alt="Wizard" />
+                                    {favWiz === '' ? (
+                                        <p>Choose your favorite wizard</p>
+                                    ) : (
+                                        <p>{favWiz}</p>
+                                    )}
+                                </div>
                             </SwiperSlide>
                             <SwiperSlide
                                 onClick={() => setSpellChoice(true)}
-                                className="favorites__slider__spells"
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
                             >
-                                <p>Spells & Potions</p>
-                                <img src={potionSvg} alt="Wizard" />
-                                {favSpell === '' ? (
-                                    <p>Choose your favorite spell or potion</p>
-                                ) : (
-                                    <p>{favSpell}</p>
-                                )}
+                                <div className="favorites__slider__wizard">
+                                    <p>Spells & Potions</p>
+                                    <img src={potionSvg} alt="Wizard" />
+                                    {favSpell === '' ? (
+                                        <p>
+                                            Choose your favorite spell or potion
+                                        </p>
+                                    ) : (
+                                        <p>{favSpell}</p>
+                                    )}
+                                </div>
                             </SwiperSlide>
                             <SwiperSlide
                                 onClick={() => setPlaceChoice(true)}
-                                className="favorites__slider__places"
+                                style={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                }}
                             >
-                                <p>Places & Transport</p>
-                                <img src={broomSvg} alt="Wizard" />
-                                {favPlace === '' ? (
-                                    <p>
-                                        Choose your favorite place or trasport
-                                    </p>
-                                ) : (
-                                    <p>{favPlace}</p>
-                                )}
+                                <div className="favorites__slider__wizard">
+                                    <p>Places & Transport</p>
+                                    <img src={broomSvg} alt="Wizard" />
+                                    {favPlace === '' ? (
+                                        <p>
+                                            Choose your favorite place or
+                                            trasport
+                                        </p>
+                                    ) : (
+                                        <p>{favPlace}</p>
+                                    )}
+                                </div>
                             </SwiperSlide>
                         </Swiper>
                     </>

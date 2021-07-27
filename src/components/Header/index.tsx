@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../../config/firebase';
+import logging from '../../config/logging';
 
 const Header: React.FC = () => {
     const [mobileNav, setMobileNav] = useState<boolean>(false);
+
+    const history = useHistory();
+
+    const Logout = () => {
+        auth.signOut()
+            .then(() => history.push('/'))
+            .catch((error) => logging.error(error));
+    };
 
     return (
         <>
@@ -61,6 +70,16 @@ const Header: React.FC = () => {
                                         Profile
                                     </Link>
                                 </li>
+                                <li>
+                                    <button
+                                        onClick={() => {
+                                            Logout();
+                                            setMobileNav(false);
+                                        }}
+                                    >
+                                        Logout
+                                    </button>
+                                </li>
                             </ul>
                         ) : (
                             <ul className="mobile--nav__nav__profile">
@@ -88,7 +107,9 @@ const Header: React.FC = () => {
                 <>
                     <header className="header">
                         <div className="header__logo">
-                            <h1>Hogsmeade Station</h1>
+                            <Link to="/">
+                                <h1>Hogsmeade Station</h1>
+                            </Link>
                         </div>
                         <nav className="header__nav">
                             <ul className="header__nav__menu">
@@ -127,7 +148,9 @@ const Header: React.FC = () => {
                     </header>
                     <header className="header--mobile">
                         <div className="header--mobile__logo">
-                            <h1>Hogsmeade Station</h1>
+                            <Link to="/">
+                                <h1>Hogsmeade Station</h1>
+                            </Link>
                         </div>
                         <button
                             className="header--mobile__hamburger"

@@ -18,6 +18,13 @@ import hatSvg from '../static/images/hat.svg';
 import potionSvg from '../static/images/potion.svg';
 import broomSvg from '../static/images/broom.svg';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import SwiperCore, { Pagination, Navigation } from 'swiper/core';
+SwiperCore.use([Pagination, Navigation]);
+
 interface Book {
     id: number;
     title: string;
@@ -94,8 +101,25 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
     const favoriteStyle = {
         width: `calc(0.9 * 18rem)`,
         height: `calc(0.9 * 22rem)`,
-        opacity: `0.5`,
+        opacity: `1`,
+        margin: `0 0 4rem 0`,
     };
+
+    const [swiperRef, setSwiperRef] = useState<any>(null);
+
+    const [width, setWidth] = useState<number>(window.innerWidth);
+    const handleWindowSizeChange = () => {
+        setWidth(window.innerWidth);
+    };
+
+    useEffect(() => {
+        window.addEventListener('resize', handleWindowSizeChange);
+        return () => {
+            window.removeEventListener('resize', handleWindowSizeChange);
+        };
+    }, []);
+
+    let isMobile: boolean = width <= 768;
 
     useEffect(() => {
         axios
@@ -207,42 +231,120 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                 })}
             </div>
             <div className="profile__favorites">
-                <div
-                    className="profile__favorites__wizard"
-                    style={favoriteStyle}
-                >
-                    <p>Wizards</p>
-                    <img src={hatSvg} alt="Wizard" />
-                    {userProfile.favorites?.wizard === '' ? (
-                        <p>Choose your favorite wizard</p>
-                    ) : (
-                        <p>{userProfile.favorites?.wizard}</p>
-                    )}
-                </div>
-                <div
-                    className="profile__favorites__wizard"
-                    style={activeFavoriteStyle}
-                >
-                    <p>Spells & Potions</p>
-                    <img src={potionSvg} alt="Wizard" />
-                    {userProfile.favorites?.spell === '' ? (
-                        <p>Choose your favorite spell or potion</p>
-                    ) : (
-                        <p>{userProfile.favorites?.spell}</p>
-                    )}
-                </div>
-                <div
-                    className="profile__favorites__wizard"
-                    style={favoriteStyle}
-                >
-                    <p>Places & Transport</p>
-                    <img src={broomSvg} alt="Wizard" />
-                    {userProfile.favorites?.place === '' ? (
-                        <p>Choose your favorite place or trasport</p>
-                    ) : (
-                        <p>{userProfile.favorites?.place}</p>
-                    )}
-                </div>
+                {isMobile ? (
+                    <Swiper
+                        onSwiper={setSwiperRef}
+                        slidesPerView={1}
+                        centeredSlides={true}
+                        spaceBetween={10}
+                        pagination={{
+                            type: 'fraction',
+                        }}
+                        className="favorites__slider"
+                    >
+                        <SwiperSlide
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <div
+                                className="profile__favorites__wizard"
+                                style={favoriteStyle}
+                            >
+                                <p>Wizards</p>
+                                <img src={hatSvg} alt="Wizard" />
+                                {userProfile.favorites?.wizard === '' ? (
+                                    <p>Choose your favorite wizard</p>
+                                ) : (
+                                    <p>{userProfile.favorites?.wizard}</p>
+                                )}
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <div
+                                className="profile__favorites__wizard"
+                                style={favoriteStyle}
+                            >
+                                <p>Spells & Potions</p>
+                                <img src={potionSvg} alt="Wizard" />
+                                {userProfile.favorites?.spell === '' ? (
+                                    <p>Choose your favorite spell or potion</p>
+                                ) : (
+                                    <p>{userProfile.favorites?.spell}</p>
+                                )}
+                            </div>
+                        </SwiperSlide>
+                        <SwiperSlide
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <div
+                                className="profile__favorites__wizard"
+                                style={favoriteStyle}
+                            >
+                                <p>Places & Transport</p>
+                                <img src={broomSvg} alt="Wizard" />
+                                {userProfile.favorites?.place === '' ? (
+                                    <p>
+                                        Choose your favorite place or trasport
+                                    </p>
+                                ) : (
+                                    <p>{userProfile.favorites?.place}</p>
+                                )}
+                            </div>
+                        </SwiperSlide>
+                    </Swiper>
+                ) : (
+                    <>
+                        <div
+                            className="profile__favorites__wizard"
+                            style={favoriteStyle}
+                        >
+                            <p>Wizards</p>
+                            <img src={hatSvg} alt="Wizard" />
+                            {userProfile.favorites?.wizard === '' ? (
+                                <p>Choose your favorite wizard</p>
+                            ) : (
+                                <p>{userProfile.favorites?.wizard}</p>
+                            )}
+                        </div>
+                        <div
+                            className="profile__favorites__wizard"
+                            style={activeFavoriteStyle}
+                        >
+                            <p>Spells & Potions</p>
+                            <img src={potionSvg} alt="Wizard" />
+                            {userProfile.favorites?.spell === '' ? (
+                                <p>Choose your favorite spell or potion</p>
+                            ) : (
+                                <p>{userProfile.favorites?.spell}</p>
+                            )}
+                        </div>
+                        <div
+                            className="profile__favorites__wizard"
+                            style={favoriteStyle}
+                        >
+                            <p>Places & Transport</p>
+                            <img src={broomSvg} alt="Wizard" />
+                            {userProfile.favorites?.place === '' ? (
+                                <p>Choose your favorite place or trasport</p>
+                            ) : (
+                                <p>{userProfile.favorites?.place}</p>
+                            )}
+                        </div>
+                    </>
+                )}
             </div>
         </main>
     );

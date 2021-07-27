@@ -18,10 +18,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        text-align: center;
 
         &__progressbar {
-            width: 50rem;
-            height: 3rem;
+            width: 16rem;
+            height: 2rem;
             border: 1px solid white;
             margin: 1rem 0 2rem 0;
         }
