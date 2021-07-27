@@ -101,6 +101,13 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
     const favoriteStyle = {
         width: `calc(0.9 * 18rem)`,
         height: `calc(0.9 * 22rem)`,
+        opacity: `0.5`,
+        margin: `0 0 4rem 0`,
+    };
+
+    const favoriteStyleMobile = {
+        width: `calc(0.9 * 18rem)`,
+        height: `calc(0.9 * 22rem)`,
         opacity: `1`,
         margin: `0 0 4rem 0`,
     };
@@ -251,7 +258,7 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                         >
                             <div
                                 className="profile__favorites__wizard"
-                                style={favoriteStyle}
+                                style={favoriteStyleMobile}
                             >
                                 <p>Wizards</p>
                                 <img src={hatSvg} alt="Wizard" />
@@ -271,7 +278,7 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                         >
                             <div
                                 className="profile__favorites__wizard"
-                                style={favoriteStyle}
+                                style={favoriteStyleMobile}
                             >
                                 <p>Spells & Potions</p>
                                 <img src={potionSvg} alt="Wizard" />
@@ -291,7 +298,7 @@ const ProfilePage: React.FunctionComponent<IProfile> = (userProfile) => {
                         >
                             <div
                                 className="profile__favorites__wizard"
-                                style={favoriteStyle}
+                                style={favoriteStyleMobile}
                             >
                                 <p>Places & Transport</p>
                                 <img src={broomSvg} alt="Wizard" />

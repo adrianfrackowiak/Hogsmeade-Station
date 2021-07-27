@@ -84,6 +84,20 @@
     }
 }
 
+@include breakpoint('md') {
+    .favorites {
+        &__slider {
+            justify-content: space-between;
+            &__wizard,
+            &__spells,
+            &__places {
+                width: 13rem;
+                height: 17.6rem;
+            }
+        }
+    }
+}
+
 @include breakpoint('2xl') {
     .favorites {
         height: 75vh;

@@ -11,6 +11,12 @@
     }
 }
 
+@include breakpoint('sm') {
+    .container {
+        max-width: 85vw;
+    }
+}
+
 @include breakpoint('2xl') {
     .container {
         margin: 0 auto;

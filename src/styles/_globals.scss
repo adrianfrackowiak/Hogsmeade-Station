@@ -31,7 +31,6 @@ a {
 
 h1 {
     font-size: 1.5rem;
-    width: 100%;
 }
 
 h2 {
@@ -45,12 +44,20 @@ h3 {
 p {
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 0.8rem;
-    width: 100%;
 }
 
 ul {
     li {
         list-style: none;
+    }
+}
+
+@include breakpoint('md') {
+    h1 {
+        font-size: 2rem;
+    }
+    h2 {
+        font-size: 3.5rem;
     }
 }
 

@@ -152,6 +152,30 @@
     }
 }
 
+@include breakpoint('md') {
+    .bookstrack {
+        &__userdata {
+            &__progressbar {
+                width: 24rem;
+            }
+        }
+
+        &__books {
+            &__main {
+                flex-direction: row;
+
+                &__img {
+                    margin: 0;
+
+                    img {
+                        height: 20rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @include breakpoint('2xl') {
     .bookstrack {
         width: 100%;

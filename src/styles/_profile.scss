@@ -2,7 +2,7 @@
     width: 100%;
 
     &__info {
-        height: 95vh;
+        height: 82.5vh;
 
         display: flex;
         flex-direction: column;
@@ -38,6 +38,8 @@
         &__wizard,
         &__spells,
         &__places {
+            width: 18rem;
+            height: 22rem;
             background: rgb(29, 23, 44);
             border-radius: 1rem;
             cursor: pointer;
@@ -54,6 +56,24 @@
                 width: 70%;
                 text-align: center;
                 font-family: 'Source Sans Pro', sans-serif;
+            }
+        }
+    }
+}
+
+@include breakpoint('md') {
+    .profile {
+        &__favorites {
+            &__wizard,
+            &__spells,
+            &__places {
+                width: 13rem;
+                height: 17.6rem;
+            }
+        }
+        &__bookstrack {
+            &__progressbar {
+                width: 24rem;
             }
         }
     }
