@@ -52,9 +52,6 @@ const LoginPage: React.FunctionComponent<IPageProps> = (props) => {
                     onChange={(event) => setPassword(event.target.value)}
                     value={password}
                 />
-                <p>
-                    <Link to="/forgot">Forgot your password?</Link>
-                </p>
                 <button
                     disabled={authenticating}
                     onClick={() => signInWithEmailAndPassword()}
