@@ -202,12 +202,12 @@ const BooksTrack: React.FC = () => {
         <main className="bookstrack">
             <div className="bookstrack__userdata">
                 <p>You're now in</p>
-                {databaseBook.chapter !== '' ? (
+                {databaseBook.chapter !== undefined ? (
                     <h2>{databaseBook.chapter}</h2>
                 ) : (
                     <h2>...</h2>
                 )}
-                {databaseBook.title !== '' ? (
+                {databaseBook.title !== undefined ? (
                     <h3>{databaseBook.title}</h3>
                 ) : (
                     <h3>...</h3>
