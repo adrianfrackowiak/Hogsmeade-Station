@@ -73,7 +73,7 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
         };
     }, []);
 
-    let isMobile: boolean = width <= 768;
+    let isMobile: boolean = width < 768;
 
     const getDatabaseFavorites = () => {
         const database = db.ref();

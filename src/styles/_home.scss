@@ -41,54 +41,114 @@
     }
 }
 
-@include breakpoint('2xl') {
+@include breakpoint('sm') {
     .home {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
+        &__nav {
+            &__post {
+                width: 26.4rem;
+                height: 14.4rem;
+
+                p {
+                    top: 13.5rem;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint('md') {
+    .home {
+        &__nav {
+            &__post {
+                width: 30.8rem;
+                height: 16.8rem;
+
+                p {
+                    width: 80%;
+                    top: 14rem;
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint('lg') {
+    .home {
         align-items: center;
         text-align: center;
-        animation: fadein 2s;
-        -webkit-animation: fadein 2s;
-
-        a {
-            text-decoration: none;
-            color: white;
-        }
 
         h1 {
-            font-size: 3.25rem;
             width: 60%;
             margin: 4rem 0 2rem 0;
         }
 
         p {
-            font-family: 'Source Sans Pro', sans-serif;
             width: 50%;
         }
 
         &__nav {
-            width: 100%;
-            height: auto;
-            margin: 8rem 0 0 0;
+            flex-direction: row;
+            margin: 10rem 0 0 0;
 
-            display: flex;
-            justify-content: center;
+            &__post {
+                margin: 0 1rem;
+                width: 18.7rem;
+                height: 10.2rem;
+
+                p {
+                    font-size: 1.25rem;
+                    width: 80%;
+                    top: 9rem;
+                    left: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint('xl') {
+    .home {
+        h1 {
+            font-size: 3rem;
+        }
+
+        &__nav {
+            margin: 6rem 0 0 0;
+
+            &__post {
+                margin: 0 2rem;
+                width: 20.9rem;
+                height: 11.4rem;
+
+                p {
+                    width: 90%;
+                    font-size: 1.5rem;
+                    top: 10.2rem;
+                    left: 1.5rem;
+                }
+            }
+        }
+    }
+}
+
+@include breakpoint('2xl') {
+    .home {
+        h1 {
+            font-size: 3.25rem;
+            margin: 4rem 0 2rem 0;
+        }
+
+        &__nav {
+            margin: 8rem 0 0 0;
 
             &__post {
                 width: 22rem;
                 height: 12rem;
                 margin: 0 3rem;
-                background: white;
-                background-size: cover;
-                position: relative;
 
                 p {
-                    font-family: 'Cinzel', serif;
                     font-size: 2rem;
-                    text-align: left;
-                    position: absolute;
                     top: 11rem;
                     left: 2rem;
                     width: 100%;

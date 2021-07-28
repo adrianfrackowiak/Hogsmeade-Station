@@ -133,6 +133,16 @@ const Header: React.FC = () => {
                                     <li>
                                         <Link to="/profile">Profile</Link>
                                     </li>
+                                    <li>
+                                        <button
+                                            onClick={() => {
+                                                Logout();
+                                                setMobileNav(false);
+                                            }}
+                                        >
+                                            Logout
+                                        </button>
+                                    </li>
                                 </ul>
                             ) : (
                                 <ul className="header__nav__profile">

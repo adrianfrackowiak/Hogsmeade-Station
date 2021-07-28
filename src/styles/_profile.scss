@@ -79,6 +79,17 @@
     }
 }
 
+@include breakpoint('lg') {
+    .profile {
+        &__bookstrack {
+            &__progressbar {
+                width: 36rem;
+                height: 3rem;
+            }
+        }
+    }
+}
+
 @include breakpoint('2xl') {
     .profile {
         width: 100%;
