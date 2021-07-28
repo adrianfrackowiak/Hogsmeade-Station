@@ -202,8 +202,16 @@ const BooksTrack: React.FC = () => {
         <main className="bookstrack">
             <div className="bookstrack__userdata">
                 <p>You're now in</p>
-                <h2>{databaseBook.chapter}</h2>
-                <h3>{databaseBook.title}</h3>
+                {databaseBook.chapter !== '' ? (
+                    <h2>{databaseBook.chapter}</h2>
+                ) : (
+                    <h2>...</h2>
+                )}
+                {databaseBook.title !== '' ? (
+                    <h3>{databaseBook.title}</h3>
+                ) : (
+                    <h3>...</h3>
+                )}
                 <p>{`Chapter ${databaseBook.chapter_key} / ${databaseBook.chapters_amount}`}</p>
                 <div className="bookstrack__userdata__progressbar">
                     <div style={progressStyle}></div>
