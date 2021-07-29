@@ -105,6 +105,8 @@ const BooksTrack: React.FC = () => {
                     } else {
                         setIsDatabaseBook(false);
                         console.log('No data available');
+                        console.log(databaseBook.chapter);
+                        console.log(databaseBook.title);
                     }
                 })
                 .catch((error: any) => {
