@@ -1,6 +1,4 @@
 import IRoute from '../interfaces/route';
-import ChangePasswordPage from '../pages/auth/change';
-import ForgotPasswordPage from '../pages/auth/forgot';
 import LoginPage from '../pages/auth/login';
 import LogoutPage from '../pages/auth/logout';
 import RegisterPage from '../pages/auth/register';
@@ -33,26 +31,13 @@ const routes: IRoute[] = [
         protected: false,
     },
     {
-        path: '/change',
-        exact: true,
-        component: ChangePasswordPage,
-        name: 'Change Password Page',
-        protected: true,
-    },
-    {
         path: '/logout',
         exact: true,
         component: LogoutPage,
         name: 'Logout Page',
         protected: true,
     },
-    {
-        path: '/forgot',
-        exact: true,
-        component: ForgotPasswordPage,
-        name: 'Forgot Password Page',
-        protected: false,
-    },
+
     {
         path: '/profile',
         exact: true,

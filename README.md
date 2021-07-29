@@ -26,5 +26,3 @@ To be sure of enjoying Sorting Hat Ceremony, create new account with fake data ;
 -   my own api (https://github.com/adrianfrackowiak/harrypotter-api)
 
 LIVE: https://hogsmeade-station.vercel.app/
-
-:)
