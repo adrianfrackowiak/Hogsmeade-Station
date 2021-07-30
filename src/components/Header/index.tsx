@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link, useHistory } from 'react-router-dom';
 import { auth } from '../../config/firebase';
@@ -14,6 +14,12 @@ const Header: React.FC = () => {
             .then(() => history.push('/'))
             .catch((error) => logging.error(error));
     };
+
+    useEffect(() => {
+        if (mobileNav) {
+            document.body.style.overflow = 'hidden';
+        }
+    }, [mobileNav])
 
     return (
         <>
