@@ -18,8 +18,10 @@ const Header: React.FC = () => {
     useEffect(() => {
         if (mobileNav) {
             document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.removeProperty('overflow');
         }
-    }, [mobileNav])
+    }, [mobileNav]);
 
     return (
         <>
