@@ -24,8 +24,6 @@ const Application: React.FunctionComponent = () => {
                 .then((snapshot) => {
                     if (snapshot.exists()) {
                         setUserProfile(snapshot.val());
-                    } else {
-                        console.log('No data available');
                     }
                     setLoading(false);
                 })

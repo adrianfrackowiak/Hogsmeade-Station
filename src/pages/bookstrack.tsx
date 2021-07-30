@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
 import { auth, db } from '../config/firebase';
-import Layout from '../components/Layout';
 import logging from '../config/logging';
 import { BiLeftArrow, BiRightArrow } from 'react-icons/bi';
 import bgimg from '../static/images/bg1.png';
 import barimg from '../static/images/bar.png';
-import { WiStars } from 'react-icons/wi';
 import ScrollDown from '../components/ScrollDown';
 import Loading from '../components/Loading';
 
@@ -104,9 +102,6 @@ const BooksTrack: React.FC = () => {
                         );
                     } else {
                         setIsDatabaseBook(false);
-                        console.log('No data available');
-                        console.log(databaseBook.chapter);
-                        console.log(databaseBook.title);
                     }
                 })
                 .catch((error: any) => {

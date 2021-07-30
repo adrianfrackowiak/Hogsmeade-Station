@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { auth, db } from '../../config/firebase';
+import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 
-const AuthRoute: React.FunctionComponent = (props) => {
+const AuthRoute: React.FC = (props) => {
     const { children } = props;
 
     if (!auth.currentUser) {

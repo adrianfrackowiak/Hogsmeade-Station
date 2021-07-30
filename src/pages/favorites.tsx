@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Layout from '../components/Layout';
 import { auth, db } from '../config/firebase';
 import IPageProps from '../interfaces/page';
 import bgimg from '../static/images/bg1.png';
@@ -88,8 +86,6 @@ const FavoritesPage: React.FunctionComponent<IPageProps> = (props) => {
                         setFavWiz(snapshot.val().favorites.wizard);
                         setFavSpell(snapshot.val().favorites.spell);
                         setFavPlace(snapshot.val().favorites.place);
-                    } else {
-                        console.log('No data available');
                     }
                 })
                 .catch((error: any) => {

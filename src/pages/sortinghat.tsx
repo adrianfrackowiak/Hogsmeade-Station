@@ -1,7 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import Layout from '../components/Layout';
 import { auth, db } from '../config/firebase';
 import logging from '../config/logging';
 import IProfile from '../interfaces/profile';
@@ -67,16 +66,6 @@ const SortingHatPage: React.FC<IProfile> = (userProfile) => {
     };
 
     useEffect(() => {
-        console.log(housesPoints);
-        console.log(
-            Math.max(
-                housesPoints.gryffindor,
-                housesPoints.ravenclaw,
-                housesPoints.slytherin,
-                housesPoints.hufflepuff
-            )
-        );
-
         const objHouses = Object.entries(housesPoints);
         let max: number = 0;
         let maxHouse: string = '';

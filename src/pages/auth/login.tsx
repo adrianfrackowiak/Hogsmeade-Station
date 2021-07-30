@@ -4,7 +4,6 @@ import ErrorText from '../../components/ErrorText';
 import { auth } from '../../config/firebase';
 import logging from '../../config/logging';
 import IPageProps from '../../interfaces/page';
-import Layout from '../../components/Layout';
 
 const LoginPage: React.FunctionComponent<IPageProps> = (props) => {
     const [authenticating, setAuthenticating] = useState<boolean>(false);
